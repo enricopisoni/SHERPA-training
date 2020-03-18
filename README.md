@@ -1,5 +1,5 @@
 # SHERPA-training
-Code to train Source Receptor Relationship for SHERPA, using fixed and varying omega.
+Here you find the code to train Source Receptor Relationship for SHERPA, using fixed and varying omega.
 This code has been tested using the CAMS v2.2.1 emissions, and EMEP model, year 2015.
 
 # What is SHERPA
