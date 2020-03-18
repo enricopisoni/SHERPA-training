@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8 
 
-#configure the type of model and SRR creation -
+#configure the type of model and SRR creation --
 chooseModel = 'emepV433_camsV221' #'ineris7km' # 'emep10km' #'china5km' #emepV433_camsV221 -
 chooseOpt = 'step1_omegaPerPoll_aggRes_perPoll' #'step1_omegaPerPoll_aggRes VS step1_omegaPerPoll_aggRes_perPoll
 
