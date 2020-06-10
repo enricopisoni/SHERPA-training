@@ -50,7 +50,24 @@ def CreateScatter(bctarget,target,output,flagRegioMat,iSc,nx,ny,nomeDir,aqi,absd
         axisBound = ([30000,90000,30000,90000],[-20000,20000,-20000,20000]);
     elif aqi=='MAX8H':
         axisBound = ([90,130,90,130],[-10,10,-10,10]);
-
+    elif aqi=='SURF_ppb_SO2':
+        axisBound = ([0,40,0,40],[-10,10,-10,10]);
+    elif aqi=='SURF_ug_SO4':
+        axisBound = ([0,40,0,40],[-5,5,-5,5]);
+    elif aqi=='SURF_ug_NO3_F':
+        axisBound = ([0,40,0,40],[-5,5,-5,5]);
+    elif aqi=='SURF_ug_NH4_F':
+        axisBound = ([0,40,0,40],[-5,5,-5,5]);
+    elif aqi=='SURF_ug_PM_OM25':
+        axisBound = ([0,40,0,40],[-5,5,-5,5]);
+    elif aqi=='SURF_ug_PPM2.5':
+        axisBound = ([0,40,0,40],[-5,5,-5,5]);
+    elif aqi=='SURF_ug_PM_OM25':
+        axisBound = ([0,40,0,40],[-5,5,-5,5]);
+    elif aqi=='SURF_ug_PPM2.5':
+        axisBound = ([0,40,0,40],[-5,5,-5,5]);
+    elif aqi=='SURF_ug_ECFINE':
+        axisBound = ([0,40,0,40],[-5,5,-5,5]);
     
     for i in range(0, 2):
         # scatter

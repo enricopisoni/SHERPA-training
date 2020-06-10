@@ -45,7 +45,7 @@ def step1_omegaOptimization(conf):
     ny = int(conf.ny/4);
     nx = int(conf.nx/4);
     rad = conf.radStep1;
-    nPrec = len(conf.vec3[conf.POLLSEL])#conf.nPrec;
+    nPrec = 5#len(conf.vec3[conf.POLLSEL])#conf.nPrec;
     rf = conf.rf1
     flagRegioMat = np.copy(conf.flagRegioMat);
 
@@ -80,7 +80,7 @@ def step1_omegaOptimization(conf):
         IdeVec = (np.array([1, 1]), np.array([1, 2]), np.array([1, 3]), np.array([1, 4]), np.array([1, 5]));
 
     #loop over precursors
-    for precursor in range(0, nPrec):
+    for precursor in range(0, 5):
         
         PREC = precursor;
         Ide = IdeVec[precursor];

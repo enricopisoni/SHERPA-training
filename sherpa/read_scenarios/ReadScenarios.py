@@ -15,7 +15,7 @@ def ReadScenarios(conf):
     conf.aqiFil = conf.vec1[conf.POLLSEL];
     conf.aqi = conf.vec2[conf.POLLSEL];
     conf.PrecToBeUsed = conf.vec3[conf.POLLSEL];
-    conf.nameOptOmega = conf.vec4[conf.POLLSEL];
+    #conf.nameOptOmega = conf.vec4[conf.POLLSEL];
         
     #read emissions and concentrations                                 
     [conf.x, conf.y, conf.nx, conf.ny, conf.Prec] = rp.ReadPrecIneris7(conf.nSc,conf.nPrec,conf.domain,conf.absDel,conf.POLLSEL,conf.emiDenAbs,conf.aqiFil,conf); #0=abs, 1=delta
@@ -27,7 +27,7 @@ def ReadScenarios(conf):
     conf.flagRegioMat = fh.variables['flagRegioMat'][:];  # when loading, I have 'nx,ny,month';
 #    conf.flagRegioMat = np.ones_like(conf.IndicBC)
 #    conf.flagRegioMat = np.zeros_like(conf.IndicBC)
- #   conf.flagRegioMat[220:260, 220:260] = 1
+#    conf.flagRegioMat[200:260, 200:260] = 1
     
     #read info for grouping cells for omega calculation
     # fh = cdf.Dataset(conf.ncFileStep1, mode='r');

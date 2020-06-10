@@ -49,6 +49,8 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
             
             #read variable                       
             tmpMat = np.squeeze(fh.variables[precVec[pre]][:]).transpose();
+            #convert from mg/m2 to ton/km2 - this is the case for CAMS-EMEP
+            tmpMat = tmpMat/1000
             
             #convert in case of total emissions     
             if conf.domain == 'ineris7km':
