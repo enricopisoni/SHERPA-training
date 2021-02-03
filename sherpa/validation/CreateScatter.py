@@ -44,7 +44,7 @@ def CreateScatter(bctarget,target,output,flagRegioMat,iSc,nx,ny,nomeDir,aqi,absd
         axisBound = ([0,80,0,80],[0,40,0,40]);
     elif aqi=='NO2eq':
         axisBound = ([-10,200,-10,200],[-5,60,-5,60]);
-    elif (aqi=='no2') | (aqi=='SURF_ug_NO2-Yea') | ('NOx' in aqi):
+    elif (aqi=='no2') | (aqi=='SURF_ug_NO2-Yea') | ('NOx' in aqi) | ('NO' in aqi):
         axisBound = ([0,80,0,80],[0,40,0,40]);
     elif aqi=='AOT40':
         axisBound = ([30000,90000,30000,90000],[-20000,20000,-20000,20000]);

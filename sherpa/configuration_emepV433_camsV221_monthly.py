@@ -15,21 +15,21 @@ def configuration(chooseOpt):
         def scenEmissionFileName(self, sce):
             sces = '%01i'%(sce);
             root = 'input/'+self.domain+'/sce'+sces+'/';
-            return root+'sce'+sces+'.nc';
+            return root+'sce'+sces+'_monthly.nc';
         def scenConcFileName(self, sce):
             sces = '%01i'%(sce);
             root = 'input/'+self.domain+'/sce'+sces+'/';
-            fileName = root+'sce'+sces+'.nc';
+            fileName = root+'sce'+sces+'_monthly.nc';
             return fileName;
         pass;
 
     #attributes: to define features of the training and validation run
     conf = Config();
-    
+
     #ep 20200610
-    conf.yearmonth = 0 #0=year, 1=month
-    conf.whichmonth = '' #DJF, MAM, JJA, SON
-    
+    conf.yearmonth = 1 #0=year, 1=month
+    conf.whichmonth = 'JJA' #DJF, MAM, JJA, SON
+
     ###########################################################################
     #modify for testing
     conf.domain = 'emepV433_camsV221';
@@ -64,7 +64,7 @@ def configuration(chooseOpt):
     # date = (datetime.datetime.now() - datetime.timedelta(2)).strftime("%Y%m%d")
     conf.nametest = date + '_' + chooseOpt + '_rad' + str(conf.radStep1) + '-' + str(conf.radStep2) + \
                     '_rf_' + str(conf.rf1) + '-' + str(conf.rf2) + '-distCelKm-' + str(conf.distance) + \
-                    'emiTonKm2';
+                    'emiTonKm2-' + str(conf.whichmonth);
 
     # conf.nametest = '20190703_omegaSli07km_btw12_rf3_rad120';
 

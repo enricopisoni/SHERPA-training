@@ -22,6 +22,16 @@ def ReadIndicIneris7(nSc,nPrec,domain,aqiFil,aqiVar,absdel,nx,ny,conf):
             tmpMat = tmpMat + tmpMat2
         else:
             tmpMat = np.squeeze(fh.variables[aqiVar][:]).transpose(); #when loading, I have 'nx,ny,month';
+            if conf.yearmonth==1: #case for monthly values
+                if conf.whichmonth=='DJF':
+                    tmpMat = np.mean(tmpMat[:,:,[0,1,11]], axis=2)
+                elif conf.whichmonth=='MAM':
+                    tmpMat = np.mean(tmpMat[:,:,[2,3,4]], axis=2)    
+                elif conf.whichmonth=='JJA':
+                    tmpMat = np.mean(tmpMat[:,:,[5,6,7]], axis=2)                    
+                elif conf.whichmonth=='SON':
+                    tmpMat = np.mean(tmpMat[:,:,[8,9,10]], axis=2)    
+            
         fh.close();
         
         if aqiVar == 'O3': #convert from ppb to mg/m3
@@ -31,23 +41,6 @@ def ReadIndicIneris7(nSc,nPrec,domain,aqiFil,aqiVar,absdel,nx,ny,conf):
             tmpMat = tmpMat[:,:,90:273].mean(axis=2);
         IndicTmp[:,:,sce] = np.flipud(tmpMat.transpose());
 
-    #data fusion on Po Valley, to correct PM25 and PM10
-    # if conf.domain == 'emep10km':
-    #     correctionFlag = 0;
-    # elif conf.domain == 'ineris7km':
-    #     correctionFlag = 1;
-    #
-    # if aqiVar == 'PM25':
-    #     flagPm25Pm10 = 2;
-    # elif aqiVar == 'PM10':
-    #     flagPm25Pm10 = 3;
-    # elif aqiVar == 'NO2eq':
-    #     flagPm25Pm10 = 1;
-    # elif (aqiVar == 'O3') | (aqiVar == 'SOMO35'):
-    #     flagPm25Pm10 = 1;
-    #
-    # if correctionFlag == 1:
-    #     IndicTmp = po.correctionPoValley(IndicTmp, flagPm25Pm10); # flagPm25Pm10==0 means PM25, 1 means PM10
 
     IndicBC = IndicTmp[:,:,0];
     

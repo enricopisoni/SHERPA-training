@@ -73,7 +73,7 @@ def step1_omegaOptimization(conf):
             IdeVec = (np.array([1, 1]),np.array([1, 2]),np.array([1, 3]),np.array([1, 4]),np.array([1, 6]));
     elif conf.domain == 'ineris7km':
         IdeVec = (np.array([1, 2]),np.array([1, 3]),np.array([1, 4]),np.array([1, 5]),np.array([1, 6]));
-    elif conf.domain == 'emepV433_camsV221':
+    elif conf.domain == ('emepV433_camsV221') | conf.domain == ('edgar2015'):
         IdeVec = (np.array([1, 1]), np.array([1, 2]), np.array([1, 3]), np.array([1, 4]), np.array([1, 5]));
 
     #loop over precursors

@@ -49,7 +49,7 @@ def CreateMap(bctarget,target,output,flagRegioMat,x,y,iSc,nomeDir,aqi,absdel,fla
         # colors=['plt.cm.plasma_r','plt.cm.plasma_r','plt.cm.seismic','plt.cm.seismic','plt.cm.inferno_r','plt.cm.inferno_r'];
     elif aqi=='SURF_ug_NO2':
         levels = [np.arange(0,60,1),np.arange(0,60,1),np.arange(-5,5,1),np.arange(-10,11,1),np.arange(0,20,1),np.arange(0,20,1)];
-    elif aqi=='SURF_ug_NOx':
+    elif (aqi=='SURF_ug_NOx') | (aqi=='SURF_ug_NO'):
         levels = [np.arange(0,80,1),np.arange(0,80,1),np.arange(-5,5,1),np.arange(-10,11,1),np.arange(0,40,1),np.arange(0,40,1)];
     elif (aqi=='NO2eq') | (aqi=='SURF_ug_NO2-Yea') | ('NOx' in aqi):
         levels = [np.arange(0,91,1),np.arange(0,91,1),np.arange(-4,4.2,0.2),np.arange(-20,21,1),np.arange(0,41,1),np.arange(0,41,1)];
