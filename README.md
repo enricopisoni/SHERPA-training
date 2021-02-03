@@ -16,7 +16,24 @@ More specifically, SHERPA logical pathway is implemented through the following s
 3) Scenario analysis: to simulate the impact on air quality of a specific emission reduction scenario (defined also through the previous two steps)
 
 # Publications
-1) Formulation and evaluation of the source allocation methodology in the SHERPA air quality modelling tool ( P. Thunis, J. Wilson, B. Degraeuwe, E. Peduzzi, E. Pisoni, E. Vignati )
-2) A new approach to design source–receptor relationships for air quality modelling, Environmental Modelling & Software, 74, 2015, 66-74 ( A. Clappier, E. Pisoni, P. Thunis)
-3) Adding spatial flexibility to source-receptor relationships for air quality modeling, Environmental Modelling & Software, Volume 90, April 2017, Pages 68-77 (Pisoni E., Clappier A., Degraeuwe B., Thunis P.)
-4) On the design and assessment of regional air quality plans: The SHERPA approach, Journal of Environmental Management, Volume 183, Part 3, 1 December 2016, Pages 952-958. (Thunis P., Degraeuwe B., Pisoni E., Ferrari F., Clappier A.)
+
+- Degraeuwe, B., Pisoni, E., Thunis, P.
+Prioritising the sources of pollution in European cities: Do air quality modelling applications provide consistent responses?
+(2020) Geoscientific Model Development, 13 (11), pp. 5725-5736. 
+https://www.scopus.com/inward/record.uri?eid=2-s2.0-85096928556&doi=10.5194%2fgmd-13-5725-2020&partnerID=40&md5=d4cb7a3413af75830b782af529db3727
+
+- Pisoni, E., Thunis, P., Clappier, A.
+Application of the SHERPA source-receptor relationships, based on the EMEP MSC-W model, for the assessment of air quality policy scenarios
+(2019) Atmospheric Environment: X, 4, art. no. 100047, . 
+https://www.scopus.com/inward/record.uri?eid=2-s2.0-85072582264&doi=10.1016%2fj.aeaoa.2019.100047&partnerID=40&md5=34146ae8e90b2bc98ed4babfea0991a3
+
+- Pisoni, E., Albrecht, D., Mara, T.A., Rosati, R., Tarantola, S., Thunis, P.
+Application of uncertainty and sensitivity analysis to the air quality SHERPA modelling tool
+(2018) Atmospheric Environment, 183, pp. 84-93. 
+https://www.scopus.com/inward/record.uri?eid=2-s2.0-85045688029&doi=10.1016%2fj.atmosenv.2018.04.006&partnerID=40&md5=9432074fa33ac072995b6076f64cce3c
+
+- Thunis, P., Degraeuwe, B., Pisoni, E., Ferrari, F., Clappier, A.
+On the design and assessment of regional air quality plans: The SHERPA approach
+(2016) Journal of Environmental Management, 183, pp. 952-958. 
+https://www.scopus.com/inward/record.uri?eid=2-s2.0-84994012263&doi=10.1016%2fj.jenvman.2016.09.049&partnerID=40&md5=1561546680304fcf57e914bdf441d452
+
