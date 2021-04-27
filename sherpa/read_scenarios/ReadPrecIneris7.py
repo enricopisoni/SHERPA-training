@@ -15,7 +15,7 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
         precVec = ['Emis_mgm2_nox-Yea','Emis_mgm2_voc-Yea','Emis_mgm2_nh3-Yea','Emis_mgm2_pm25-Yea','Emis_mgm2_sox-Yea'];
     elif conf.domain == 'ineris7km':
         precVec = ['annualNOx','annualNMVOC','annualNH3','annualPM25','annualSOx'];
-    elif (conf.domain == 'emepV433_camsV221') | (conf.domain == 'edgar2015'):
+    elif (conf.domain == 'emepV433_camsV221') | (conf.domain == 'edgar2015') | (conf.domain == 'emepV434_camsV42'):
         precVec = ['Emis_mgm2_nox','Emis_mgm2_voc','Emis_mgm2_nh3','Emis_mgm2_pm25','Emis_mgm2_sox'];
 
     flagLL = 0;
@@ -70,7 +70,7 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
                 tmpMat = tmpMat * np.tile(surfaceValues,(1,1,10));
 
             #do this in case of ozone   
-            if (conf.domain == 'emep10km') | (conf.domain == 'emepV433_camsV221') | (conf.domain == 'edgar2015'):
+            if (conf.domain == 'emep10km') | (conf.domain == 'emepV433_camsV221') | (conf.domain == 'edgar2015') | (conf.domain == 'emepV434_camsV42'):
                 tmp = tmpMat
             elif conf.domain == 'ineris7km':
                 tmp = np.sum(tmpMat, 2); # APR-SET
@@ -88,7 +88,7 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
     if POLLSEL==2:
         if conf.domain == 'emep10km':
             precVec=['Emis_mgm2_pmco-Yea'];
-        elif (conf.domain == 'emepV433_camsV221') | (conf.domain == 'edgar2015'):
+        elif (conf.domain == 'emepV433_camsV221') | (conf.domain == 'edgar2015') | (conf.domain == 'emepV434_camsV42'):
             precVec = ['Emis_mgm2_pmco'];
         elif conf.domain == 'ineris7km':
             precVec=['annualPMcoarse'];       
@@ -107,7 +107,7 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
                     surfaceValues = fh.variables['surface'];  # read surface values
                     tmpMat = tmpMat * np.tile(surfaceValues,(1,1,10));
 
-                if (conf.domain == 'emep10km') | (conf.domain == 'emepV433_camsV221') | (conf.domain == 'edgar2015'):
+                if (conf.domain == 'emep10km') | (conf.domain == 'emepV433_camsV221') | (conf.domain == 'edgar2015') | (conf.domain == 'emepV434_camsV42'):
                     tmp = tmpMat
                 elif conf.domain == 'ineris7km':
                     tmp = np.sum(tmpMat, 2); # APR-SET
@@ -118,6 +118,15 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
 
     # create final matrix - Prec(ny,nx,nSc,nPrec)
     PrecFinal = np.zeros(np.shape(Prec));
+    
+    #EP20210218 - NH3 on London in CAMS is wrong, as they grid all UK NH3 waste management on a single point source in London
+    #so I do average of the surrounding points, and replace that point of London with the average
+    #if conf.domain == 'emepV433_camsV221' :
+    #    for sce in range(0, nSc) :
+    #        Prec[199,151,sce,2] = np.mean(Prec[198:201,150:153,sce,2]) #NH3 for London for waste management
+    #        Prec[337,301,sce,4] = np.mean(Prec[336:339,300:303,sce,4]) #SOx for Catania for residential sector
+
+    
     for i in range(0, nPrec):
         for j in range(0, nSc):
             if absdel==0: # absolute values

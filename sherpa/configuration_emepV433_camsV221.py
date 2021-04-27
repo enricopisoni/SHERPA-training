@@ -51,9 +51,9 @@ def configuration(chooseOpt):
 
     #conf.season = 'Yea'
     # conf.nPrec = 2; # 5 for PM, 2 for O3 (nox, voc), 1 for NO2 (nox)
-    conf.nSc = 30; #total number of scenarios
+    conf.nSc = 28; #total number of scenarios
     conf.Ide = np.array([0,1,2,3,4,5,6]) #np.arange(0, 8);  #training scenarios
-    conf.Val = np.arange(1,30)#np.arange(1, 33); #validation scenarios
+    conf.Val = np.arange(1,28)#np.arange(1, 33); #validation scenarios
     #conf.flagRegioMatFile = 'input/'+conf.domain+'/createFlagRegioMat/flagRegioMat.nc'#flagRegioMat-allEmepDomain.mat'#flagRegioMat_onlyLandEu28_noTurkey_noIceland.mat'#flagRegioMat-allEmepDomain.mat'#flagRegioMat_onlyLandEu28_noTurkey_noIceland.mat'#flagRegioMat_onlyLandEu28_noTurkey_noIceland.mat'#flagRegioMat-allEmepDomain.mat'#flagRegioMat_onlyLandEu28_noTurkey_noIceland.mat'; #fixed problem on west coast cells, and small islands
     conf.flagRegioMatFile = 'input/'+conf.domain+'/createFlagRegioMat/flagRegioMat_noSea.nc'#all but #ATL	32	Remaining North-East Atlantic Ocean
     

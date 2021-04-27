@@ -32,8 +32,8 @@ def configuration(chooseOpt):
     
     ###########################################################################
     #modify for testing
-    conf.domain = 'edgar2015';
-    conf.flagReg = 'edgar2015';
+    conf.domain = 'emepV434_camsV42';
+    conf.flagReg = 'emepV434_camsV42';
     conf.distance = 0 # 0=cells, 1=distance in km
     conf.gf = 0
     conf.rf1 = 3 # window of cells of training varying F (1=one ring of cells used for training, surrounding the target cell0
@@ -42,18 +42,18 @@ def configuration(chooseOpt):
     conf.radStep2 = 100; # number of cells to be considered in step1
 
 
-    conf.POLLSEL = 2 # 0=SURF_ug_NO2, 1=SURF_ug_PM25_rh50, 2=SURF_ug_PM10_rh50, 3=SOMO35, 
+    conf.POLLSEL = 6 # 0=SURF_ug_NO2, 1=SURF_ug_PM25_rh50, 2=SURF_ug_PM10_rh50, 3=SOMO35, 
                       # 4=SURF_MAX03, 5=SURF_ug_NOx, 6=SURF_ppb_O3, 7=SURF_ppb_SO2,
                       # 8=SURF_ug_SO4, 9=SURF_ug_NO3_F, 10=SURF_ug_NH4_F, 
-                      # 11=SURF_ug_PM_OM25, 12=SURF_ug_PPM25, 13='SURF_ug_ECFINE', 14='SURF_ug_NO');
+                      # 11=SURF_ug_PM_OM25, 12=SURF_ug_PPM25, 13='SURF_ug_ECFINE');
     #NB: in case of 5=SURF_ug_NOx, NO and NO2 are summed up to produce NOx
     conf.nPrec = 5; # 5 for PM, 2 for O3 (nox, voc), 1 for NO2 (nox)
 
     #conf.season = 'Yea'
     # conf.nPrec = 2; # 5 for PM, 2 for O3 (nox, voc), 1 for NO2 (nox)
-    conf.nSc = 28; #total number of scenarios
+    conf.nSc = 13; #total number of scenarios
     conf.Ide = np.array([0,1,2,3,4,5,6]) #np.arange(0, 8);  #training scenarios
-    conf.Val = np.arange(1,28)#np.arange(1, 33); #validation scenarios
+    conf.Val = np.arange(1,13)#np.arange(1, 33); #validation scenarios
     #conf.flagRegioMatFile = 'input/'+conf.domain+'/createFlagRegioMat/flagRegioMat.nc'#flagRegioMat-allEmepDomain.mat'#flagRegioMat_onlyLandEu28_noTurkey_noIceland.mat'#flagRegioMat-allEmepDomain.mat'#flagRegioMat_onlyLandEu28_noTurkey_noIceland.mat'#flagRegioMat_onlyLandEu28_noTurkey_noIceland.mat'#flagRegioMat-allEmepDomain.mat'#flagRegioMat_onlyLandEu28_noTurkey_noIceland.mat'; #fixed problem on west coast cells, and small islands
     conf.flagRegioMatFile = 'input/'+conf.domain+'/createFlagRegioMat/flagRegioMat_noSea.nc'#all but #ATL	32	Remaining North-East Atlantic Ocean
     
@@ -97,7 +97,7 @@ def configuration(chooseOpt):
 
     conf.vec1 = ('SURF_ug_NO2','SURF_ug_PM25_rh50','SURF_ug_PM10_rh50','SOMO35', 'SURF_MAXO3', 'SURF_ug_NOx',
                  'SURF_ppb_O3', 'SURF_ppb_SO2','SURF_ug_SO4', 'SURF_ug_NO3_F','SURF_ug_NH4_F',
-                 'SURF_ug_PM_OM25', 'SURF_ug_PPM25', 'SURF_ug_ECFINE', 'SURF_ug_NO');
+                 'SURF_ug_PM_OM25', 'SURF_ug_PPM25', 'SURF_ug_ECFINE');
 
     # n1 = 'SURF_ug_NOx-' + conf.season
     # n2 = 'SURF_ug_PM25_rh50-' + conf.season
@@ -105,7 +105,7 @@ def configuration(chooseOpt):
     # n4 = 'SURF_ppb_O3-' + conf.season
     conf.vec2 = conf.vec1 #(n1, n2, n3, n4)
     conf.vec3 = [[0],[0,1,2,3,4],[0,1,2,3,4],[0,1],[0,1],[0],[0,1],[0,1,2,3,4],[0,1,2,3,4], 
-                 [0,1,2,3,4], [0,1,2,3,4], [0,1,2,3,4], [0,1,2,3,4], [0,1,2,3,4], [0]]; # no2 2voc 3nh3 4pm25 5so2 5nox
+                 [0,1,2,3,4], [0,1,2,3,4], [0,1,2,3,4], [0,1,2,3,4], [0,1,2,3,4]]; # no2 2voc 3nh3 4pm25 5so2 5nox
     #conf.vec4 = ('1step_SURF_ug_NO2','1step_SURF_ug_PM25_rh50','1step_SURF_ug_PM10_rh50','1SURF_ppb_O3','1SURF_ppb_MAXO3','1SURF_ppb_NOx'); #not used anymore
     aqiFil = conf.vec1[conf.POLLSEL];
 

@@ -4,7 +4,7 @@
 ################################################################################################################
 #ep 20200610, do you want yearly or monthly results?
 #YEARLY VALUES
-chooseModel = 'edgar2015' #'ineris7km' # 'emep10km' #'china5km' #emepV433_camsV221 "edgar2015#
+chooseModel = 'emepV434_camsV42' #'ineris7km' # 'emep10km' #'china5km' #emepV433_camsV221 "edgar2015#
 #MONTHLY VALUES
 #chooseModel = 'emepV433_camsV221_monthly' 
 ################################################################################################################
@@ -31,6 +31,8 @@ elif chooseModel == 'emepV433_camsV221_monthly':
     import sherpa.configuration_emepV433_camsV221_monthly as c
 elif chooseModel == 'edgar2015':
     import sherpa.configuration_edgar2015 as c
+elif chooseModel == 'emepV434_camsV42':
+    import sherpa.configuration_emepV434_camsV42 as c
     
 if chooseOpt ==    'step1_omegaPerPoll_aggRes':
     import sherpa.training.step1.step1_omegaPerPoll_aggRes as s1
