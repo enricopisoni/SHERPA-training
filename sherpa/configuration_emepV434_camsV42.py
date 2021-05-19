@@ -42,10 +42,10 @@ def configuration(chooseOpt):
     conf.radStep2 = 100; # number of cells to be considered in step1
 
 
-    conf.POLLSEL = 6 # 0=SURF_ug_NO2, 1=SURF_ug_PM25_rh50, 2=SURF_ug_PM10_rh50, 3=SOMO35, 
+    conf.POLLSEL = 15 # 0=SURF_ug_NO2, 1=SURF_ug_PM25_rh50, 2=SURF_ug_PM10_rh50, 3=SOMO35, 
                       # 4=SURF_MAX03, 5=SURF_ug_NOx, 6=SURF_ppb_O3, 7=SURF_ppb_SO2,
                       # 8=SURF_ug_SO4, 9=SURF_ug_NO3_F, 10=SURF_ug_NH4_F, 
-                      # 11=SURF_ug_PM_OM25, 12=SURF_ug_PPM25, 13='SURF_ug_ECFINE');
+                      # 11=SURF_ug_PM_OM25, 12=SURF_ug_PPM25, 13='SURF_ug_ECFINE', 14='SURF_ug_NO', 15='SURF_ug_SIA');
     #NB: in case of 5=SURF_ug_NOx, NO and NO2 are summed up to produce NOx
     conf.nPrec = 5; # 5 for PM, 2 for O3 (nox, voc), 1 for NO2 (nox)
 
@@ -97,7 +97,7 @@ def configuration(chooseOpt):
 
     conf.vec1 = ('SURF_ug_NO2','SURF_ug_PM25_rh50','SURF_ug_PM10_rh50','SOMO35', 'SURF_MAXO3', 'SURF_ug_NOx',
                  'SURF_ppb_O3', 'SURF_ppb_SO2','SURF_ug_SO4', 'SURF_ug_NO3_F','SURF_ug_NH4_F',
-                 'SURF_ug_PM_OM25', 'SURF_ug_PPM25', 'SURF_ug_ECFINE');
+                 'SURF_ug_PM_OM25', 'SURF_ug_PPM25', 'SURF_ug_ECFINE', 'SURF_ug_NO', 'SURF_ug_SIA');
 
     # n1 = 'SURF_ug_NOx-' + conf.season
     # n2 = 'SURF_ug_PM25_rh50-' + conf.season
@@ -105,7 +105,7 @@ def configuration(chooseOpt):
     # n4 = 'SURF_ppb_O3-' + conf.season
     conf.vec2 = conf.vec1 #(n1, n2, n3, n4)
     conf.vec3 = [[0],[0,1,2,3,4],[0,1,2,3,4],[0,1],[0,1],[0],[0,1],[0,1,2,3,4],[0,1,2,3,4], 
-                 [0,1,2,3,4], [0,1,2,3,4], [0,1,2,3,4], [0,1,2,3,4], [0,1,2,3,4]]; # no2 2voc 3nh3 4pm25 5so2 5nox
+                 [0,1,2,3,4], [0,1,2,3,4], [0,1,2,3,4], [3], [0,1,2,3,4], [0], [0,1,2,4]]; # no2 2voc 3nh3 4pm25 5so2 5nox
     #conf.vec4 = ('1step_SURF_ug_NO2','1step_SURF_ug_PM25_rh50','1step_SURF_ug_PM10_rh50','1SURF_ppb_O3','1SURF_ppb_MAXO3','1SURF_ppb_NOx'); #not used anymore
     aqiFil = conf.vec1[conf.POLLSEL];
 

@@ -37,6 +37,8 @@ def CreateScatter(bctarget,target,output,flagRegioMat,iSc,nx,ny,nomeDir,aqi,absd
         axisBound = ([0,80,0,80],[-30,30,-30,30]);
     elif ('PM25' in aqi):
         axisBound = ([0,60,0,60],[0,25,0,25]);
+    elif ('SIA' in aqi):
+        axisBound = ([0,60,0,60],[0,25,0,25]);
         #axisBound = ([0 20 0 20],[0 10 0 10]); %only for riat-lomb
     elif aqi=='SURF_ug_NO2':
         axisBound = ([0,60,0,60],[0,20,0,20]);
