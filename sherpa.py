@@ -5,6 +5,9 @@
 #ep 20200610, do you want yearly or monthly results?
 #YEARLY VALUES
 chooseModel = 'emepV434_camsV42' #'ineris7km' # 'emep10km' #'china5km' #emepV433_camsV221 "edgar2015#
+#emep4nl_2021
+#test for NL, 20210729
+chooseModel = 'emep4nl_2021' #'ineris7km' # 'emep10km' #'china5km' #emepV433_camsV221 "edgar2015#
 #MONTHLY VALUES
 #chooseModel = 'emepV433_camsV221_monthly' 
 ################################################################################################################
@@ -33,6 +36,8 @@ elif chooseModel == 'edgar2015':
     import sherpa.configuration_edgar2015 as c
 elif chooseModel == 'emepV434_camsV42':
     import sherpa.configuration_emepV434_camsV42 as c
+elif chooseModel == 'emep4nl_2021':
+    import sherpa.configuration_emep4nl_2021 as c
     
 if chooseOpt ==    'step1_omegaPerPoll_aggRes':
     import sherpa.training.step1.step1_omegaPerPoll_aggRes as s1
@@ -98,16 +103,16 @@ def main(argv=None):
             print('step1');
 
             #this uses varying omega
-            s1.step1_omegaOptimization(conf)
+#            s1.step1_omegaOptimization(conf)
 
 #            # this is the test done during December 2019, using fixed omega
-#            conf.alphaFinalStep1_alldom = np.zeros((conf.Prec.shape[0], conf.Prec.shape[1], 5));
-#            conf.omegaFinalStep1_alldom = np.zeros((conf.Prec.shape[0], conf.Prec.shape[1], 5));
-#            conf.alphaFinalStep1_alldom[:] = 1
-#            conf.omegaFinalStep1_alldom[:] = 1.5 #THIS IS NOT USED AFTER
-#            conf.omegaFinalStep1 = np.zeros_like(conf.omegaFinalStep1_alldom)
-#            conf.omegaFinalStep1[:] = 1.5 #if you want to consider 1.5 fix
-#            conf.omegaFinalStep1[:, :, 3] = 1.5
+            conf.alphaFinalStep1_alldom = np.zeros((conf.Prec.shape[0], conf.Prec.shape[1], 5));
+            conf.omegaFinalStep1_alldom = np.zeros((conf.Prec.shape[0], conf.Prec.shape[1], 5));
+            conf.alphaFinalStep1_alldom[:] = 1
+            conf.omegaFinalStep1_alldom[:] = 1.5 #THIS IS NOT USED AFTER
+            conf.omegaFinalStep1 = np.zeros_like(conf.omegaFinalStep1_alldom)
+            conf.omegaFinalStep1[:] = 1.5 #if you want to consider 1.5 fix
+            conf.omegaFinalStep1[:, :, 3] = 1.5
 
             print('step2');
             s2.step2(conf);

@@ -17,6 +17,8 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
         precVec = ['annualNOx','annualNMVOC','annualNH3','annualPM25','annualSOx'];
     elif (conf.domain == 'emepV433_camsV221') | (conf.domain == 'edgar2015') | (conf.domain == 'emepV434_camsV42'):
         precVec = ['Emis_mgm2_nox','Emis_mgm2_voc','Emis_mgm2_nh3','Emis_mgm2_pm25','Emis_mgm2_sox'];
+    elif (conf.domain == 'emep4nl_2021'):
+        precVec = ['Sec_Emis_mgm2_nox','Sec_Emis_mgm2_voc','Sec_Emis_mgm2_nh3','Sec_Emis_mgm2_pm25','Sec_Emis_mgm2_sox'];
 
     flagLL = 0;
     
@@ -70,7 +72,7 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
                 tmpMat = tmpMat * np.tile(surfaceValues,(1,1,10));
 
             #do this in case of ozone   
-            if (conf.domain == 'emep10km') | (conf.domain == 'emepV433_camsV221') | (conf.domain == 'edgar2015') | (conf.domain == 'emepV434_camsV42'):
+            if (conf.domain == 'emep10km') | (conf.domain == 'emepV433_camsV221') | (conf.domain == 'edgar2015') | (conf.domain == 'emepV434_camsV42') | (conf.domain == 'emep4nl_2021'):
                 tmp = tmpMat
             elif conf.domain == 'ineris7km':
                 tmp = np.sum(tmpMat, 2); # APR-SET

@@ -47,9 +47,15 @@ def CreateMap(bctarget,target,output,flagRegioMat,x,y,iSc,nomeDir,aqi,absdel,fla
         levels = [np.arange(0,26,1),np.arange(0,26,1),np.arange(-4,4.2,0.2),np.arange(-10,11,1),np.arange(0,16,1),np.arange(0,16,1)];
         Range = [[0,25],[0,25],[-2,2],[-10,10],[-10,10],[-10,10]];
         # colors=['plt.cm.plasma_r','plt.cm.plasma_r','plt.cm.seismic','plt.cm.seismic','plt.cm.inferno_r','plt.cm.inferno_r'];
+    elif aqi=='DDEP_RDN_m2Grid' :
+        levels = [np.arange(0,1800,100),np.arange(0,1800,100),np.arange(-50,2,50),np.arange(-10,11,1),np.arange(0,16,1),np.arange(0,16,1)];
+        #Range = [[0,2500],[0,2500],[-2,2],[-10,10],[-10,10],[-10,10]];
     elif ('SIA' in aqi):
         levels = [np.arange(0,26,1),np.arange(0,26,1),np.arange(-4,4.2,0.2),np.arange(-10,11,1),np.arange(0,16,1),np.arange(0,16,1)];
-        Range = [[0,25],[0,25],[-2,2],[-10,10],[-10,10],[-10,10]];
+        Range = [[0,25],[0,25],[-2,2],[-10,10],[-10,10],[-10,10]];        
+    elif ('NH3' in aqi):
+        levels = [np.arange(0,26,1),np.arange(0,26,1),np.arange(-4,4.2,0.2),np.arange(-10,11,1),np.arange(0,16,1),np.arange(0,16,1)];
+        Range = [[0,25],[0,25],[-2,2],[-10,10],[-10,10],[-10,10]];  
     elif aqi=='SURF_ug_NO2':
         levels = [np.arange(0,60,1),np.arange(0,60,1),np.arange(-5,5,1),np.arange(-10,11,1),np.arange(0,20,1),np.arange(0,20,1)];
     elif (aqi=='SURF_ug_NOx') | (aqi=='SURF_ug_NO'):
