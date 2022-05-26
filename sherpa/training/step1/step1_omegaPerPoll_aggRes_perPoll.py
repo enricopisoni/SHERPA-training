@@ -76,7 +76,8 @@ def step1_omegaOptimization(conf):
             IdeVec = (np.array([1, 1]),np.array([1, 2]),np.array([1, 3]),np.array([1, 4]),np.array([1, 6]));
     elif conf.domain == 'ineris7km':
         IdeVec = (np.array([1, 2]),np.array([1, 3]),np.array([1, 4]),np.array([1, 5]),np.array([1, 6]));
-    elif (conf.domain == 'emepV433_camsV221')  | (conf.domain == 'edgar2015') | (conf.domain == 'emepV434_camsV42'):
+    # elif (conf.domain == 'emepV433_camsV221')  | (conf.domain == 'edgar2015') | (conf.domain == 'emepV434_camsV42'):
+    elif ('emep' in conf.domain) |  (conf.domain == 'edgar2015'):        
         IdeVec = (np.array([1, 1]), np.array([1, 2]), np.array([1, 3]), np.array([1, 4]), np.array([1, 5]));
 
     #loop over precursors
@@ -86,11 +87,10 @@ def step1_omegaOptimization(conf):
         Ide = IdeVec[precursor];
 #        icel = 0;
         
-        if (PREC == 2 or PREC== 3):
-            bnds = ((0, 1), (1.5, 2.5))
-        else:
-            bnds = ((0, 1), (1.5, 2.5))
-
+        #20220414, test with decreased bounds
+        bnds = ((0, 1), (1.75, 2)) #20220524, used for PM25, PM10, O3
+        # bnds = ((0, 1), (1.75, 2.5)) #20220524, used for NO2 and NO
+        
         #intialize variables
 #        numcells = nx*ny
 #        numcells = np.sum(flagRegioMat>0) # create empty matrix only for really needed points
@@ -121,7 +121,7 @@ def step1_omegaOptimization(conf):
 
 #                    remInd = (tmpInde>0).flatten()
                     i=1
-                    x0 = [1, 2];
+                    x0 = [1, 2]; #20220314 - test with different IC
 #                    print(remInd)
 
 #                    inp1 = tmpPrec[remInd]#[ind,:];
@@ -134,10 +134,12 @@ def step1_omegaOptimization(conf):
 #                    mdl = minimize(iop, x0, args=(inp1, inp2, rad, latVec, conf.ratioPoly), method='BFGS', options=opts)  # L-BFGS-B, TNC
                     
 #                    print(mdl.x)
-                    mdl = minimize(iop, x0, args=(inp1, inp2, rad, latVec, conf.ratioPoly), bounds=bnds, method='L-BFGS-B', options=opts)  # L-BFGS-B, TNC
-#                    print(mdl.x)
-#                    mdl = minimize(iop, x0, args=(inp1, inp2, rad, latVec, conf.ratioPoly), bounds=bnds, method='SLSQP', options=opts)  # L-BFGS-B, TNC
-#                    print(mdl.x)
+                    #mdl = minimize(iop, x0, args=(inp1, inp2, rad, latVec, conf.ratioPoly), bounds=bnds, method='L-BFGS-B', options=opts)  # L-BFGS-B, TNC
+                    #print('L-BFGS-B')
+                    #print(mdl.x[1])
+                    mdl = minimize(iop, x0, args=(inp1, inp2, rad, latVec, conf.ratioPoly), bounds=bnds, method='SLSQP', options=opts)  # L-BFGS-B, TNC
+                    #print('SLSQP')
+                    # print(mdl.x[1])
                     alpha[ir,ic,PREC] = mdl.x[0];
                     omega[ir,ic,PREC] = mdl.x[1];
         

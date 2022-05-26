@@ -4,23 +4,25 @@
 ################################################################################################################
 #ep 20200610, do you want yearly or monthly results?
 #YEARLY VALUES
-chooseModel = 'emepV434_camsV42' #'ineris7km' # 'emep10km' #'china5km' #emepV433_camsV221 "edgar2015#
+#emepV434_camsV42withCond_01005 works with CAMS4.2, with condensables, at 0.1x0.05 spatial resolution
+chooseModel = 'emepV434_camsV42withCond_01005' #'emepV434_camsV42' #'ineris7km' # 'emep10km' #'china5km' #emepV433_camsV221 "edgar2015#
 #emep4nl_2021
 #test for NL, 20210729
-chooseModel = 'emep4nl_2021' #'ineris7km' # 'emep10km' #'china5km' #emepV433_camsV221 "edgar2015#
+#chooseModel = 'emep4nl_2021' #'ineris7km' # 'emep10km' #'china5km' #emepV433_camsV221 "edgar2015#
 #MONTHLY VALUES
 #chooseModel = 'emepV433_camsV221_monthly' 
 ################################################################################################################
 
 chooseOpt = 'step1_omegaPerPoll_aggRes_perPoll' #'step1_omegaPerPoll_aggRes VS 
 
-import sys
 import os
+import sys
 import time
+import numpy as np
+
 import sherpa.read_scenarios.ReadScenarios as rs
 import sherpa.read_scenarios.computeDistanceRatio as cr
 import sherpa.training.step2.step2 as s2
-import numpy as np
 
 if chooseModel == 'emep10km':
     import sherpa.configuration_emep as c
@@ -38,6 +40,8 @@ elif chooseModel == 'emepV434_camsV42':
     import sherpa.configuration_emepV434_camsV42 as c
 elif chooseModel == 'emep4nl_2021':
     import sherpa.configuration_emep4nl_2021 as c
+elif chooseModel == 'emepV434_camsV42withCond_01005':
+    import sherpa.configuration_emepV434_camsV42withCond_01005 as c
     
 if chooseOpt ==    'step1_omegaPerPoll_aggRes':
     import sherpa.training.step1.step1_omegaPerPoll_aggRes as s1
@@ -67,7 +71,7 @@ def main(argv=None):
 
     if argv is None:
         argv = sys.argv[1:]
-    try:
+    try:    
         # setup option parser
         parser = OptionParser(version=program_version_string, epilog=program_longdesc, description=program_license)
         parser.add_option("-p", "--path", dest="datapath", help="set data path [default: %default]", metavar="DIR")
@@ -103,16 +107,16 @@ def main(argv=None):
             print('step1');
 
             #this uses varying omega
-#            s1.step1_omegaOptimization(conf)
+            s1.step1_omegaOptimization(conf)
 
 #            # this is the test done during December 2019, using fixed omega
-            conf.alphaFinalStep1_alldom = np.zeros((conf.Prec.shape[0], conf.Prec.shape[1], 5));
-            conf.omegaFinalStep1_alldom = np.zeros((conf.Prec.shape[0], conf.Prec.shape[1], 5));
-            conf.alphaFinalStep1_alldom[:] = 1
-            conf.omegaFinalStep1_alldom[:] = 1.5 #THIS IS NOT USED AFTER
-            conf.omegaFinalStep1 = np.zeros_like(conf.omegaFinalStep1_alldom)
-            conf.omegaFinalStep1[:] = 1.5 #if you want to consider 1.5 fix
-            conf.omegaFinalStep1[:, :, 3] = 1.5
+            # conf.alphaFinalStep1_alldom = np.zeros((conf.Prec.shape[0], conf.Prec.shape[1], 5));
+            # conf.omegaFinalStep1_alldom = np.zeros((conf.Prec.shape[0], conf.Prec.shape[1], 5));
+            # conf.alphaFinalStep1_alldom[:] = 1
+            # conf.omegaFinalStep1_alldom[:] = 1.75 #THIS IS NOT USED AFTER
+            # conf.omegaFinalStep1 = np.zeros_like(conf.omegaFinalStep1_alldom)
+            # conf.omegaFinalStep1[:] = 1.75 #if you want to consider 1.5 fix
+            # conf.omegaFinalStep1[:, :, 3] = 1.75
 
             print('step2');
             s2.step2(conf);
@@ -126,7 +130,7 @@ def main(argv=None):
 
     except Exception as e:
         indent = len(program_name) * " "
-        print(traceback.format_exc())
+        # print(traceback.format_exc())
         sys.stderr.write(program_name + ": " + repr(e) + "\n")
         sys.stderr.write(indent + "  for help use --help")
         #print(sys.exc_info()[0])

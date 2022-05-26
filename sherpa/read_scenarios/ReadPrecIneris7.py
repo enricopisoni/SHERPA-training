@@ -15,7 +15,8 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
         precVec = ['Emis_mgm2_nox-Yea','Emis_mgm2_voc-Yea','Emis_mgm2_nh3-Yea','Emis_mgm2_pm25-Yea','Emis_mgm2_sox-Yea'];
     elif conf.domain == 'ineris7km':
         precVec = ['annualNOx','annualNMVOC','annualNH3','annualPM25','annualSOx'];
-    elif (conf.domain == 'emepV433_camsV221') | (conf.domain == 'edgar2015') | (conf.domain == 'emepV434_camsV42'):
+    elif (conf.domain == 'emepV433_camsV221') | (conf.domain == 'edgar2015') | (conf.domain == 'emepV434_camsV42') \
+        | (conf.domain =='emepV434_camsV42withCond_01005'):
         precVec = ['Emis_mgm2_nox','Emis_mgm2_voc','Emis_mgm2_nh3','Emis_mgm2_pm25','Emis_mgm2_sox'];
     elif (conf.domain == 'emep4nl_2021'):
         precVec = ['Sec_Emis_mgm2_nox','Sec_Emis_mgm2_voc','Sec_Emis_mgm2_nh3','Sec_Emis_mgm2_pm25','Sec_Emis_mgm2_sox'];
@@ -65,14 +66,17 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
             tmpMat = tmpMat/1000
             
             #convert in case of total emissions     
-            if conf.domain == 'ineris7km':
-                surfaceValues = fh.variables['surface']; # read surface values
-            
             if emiDenAbs==1: # from ton/km2 to ton/cell
-                tmpMat = tmpMat * np.tile(surfaceValues,(1,1,10));
+                surfaceValues = np.squeeze(fh.variables['Area_Grid_km2'][:]).transpose();  # read surface values
+                #to kton/km2 dividing by 100, to kton/year multiplying by the area
+                tmpMat = tmpMat/1000
+                tmpMat = tmpMat * surfaceValues;
 
             #do this in case of ozone   
-            if (conf.domain == 'emep10km') | (conf.domain == 'emepV433_camsV221') | (conf.domain == 'edgar2015') | (conf.domain == 'emepV434_camsV42') | (conf.domain == 'emep4nl_2021'):
+            if ('emep' in conf.domain) |  (conf.domain == 'edgar2015'):
+            # if (conf.domain == 'emep10km') | (conf.domain == 'emepV433_camsV221') | (conf.domain == 'edgar2015') \ 
+            #     | (conf.domain == 'emepV434_camsV42') | (conf.domain == 'emep4nl_2021') \
+            #     | (conf.domain =='emepV434_camsV42withCond_01005'):
                 tmp = tmpMat
             elif conf.domain == 'ineris7km':
                 tmp = np.sum(tmpMat, 2); # APR-SET
@@ -90,7 +94,7 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
     if POLLSEL==2:
         if conf.domain == 'emep10km':
             precVec=['Emis_mgm2_pmco-Yea'];
-        elif (conf.domain == 'emepV433_camsV221') | (conf.domain == 'edgar2015') | (conf.domain == 'emepV434_camsV42'):
+        elif (conf.domain == 'emepV433_camsV221') | (conf.domain == 'edgar2015') | (conf.domain == 'emepV434_camsV42') | (conf.domain =='emepV434_camsV42withCond_01005'):
             precVec = ['Emis_mgm2_pmco'];
         elif conf.domain == 'ineris7km':
             precVec=['annualPMcoarse'];       
@@ -104,12 +108,17 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
                 
                 #convert from mg/m2 to ton/km2 - this is the case for CAMS-EMEP, and EDGAR                  
                 tmpMat = tmpMat/1000
-
+    
+                #convert in case of total emissions     
                 if emiDenAbs==1: # from ton/km2 to ton/cell
-                    surfaceValues = fh.variables['surface'];  # read surface values
-                    tmpMat = tmpMat * np.tile(surfaceValues,(1,1,10));
+                    surfaceValues = np.squeeze(fh.variables['Area_Grid_km2'][:]).transpose();  # read surface values
+                    #to kton/km2 dividing by 100, to kton/year multiplying by the area
+                    tmpMat = tmpMat/1000
+                    tmpMat = tmpMat * surfaceValues;
 
-                if (conf.domain == 'emep10km') | (conf.domain == 'emepV433_camsV221') | (conf.domain == 'edgar2015') | (conf.domain == 'emepV434_camsV42'):
+                if ('emep' in conf.domain) |  (conf.domain == 'edgar2015'):
+                # if (conf.domain == 'emep10km') | (conf.domain == 'emepV433_camsV221') | (conf.domain == 'edgar2015') | (conf.domain == 'emepV434_camsV42') \
+                #     | (conf.domain =='emepV434_camsV42withCond_01005'):
                     tmp = tmpMat
                 elif conf.domain == 'ineris7km':
                     tmp = np.sum(tmpMat, 2); # APR-SET
