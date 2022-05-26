@@ -2,6 +2,7 @@
 Here you find the code to train Source Receptor Relationship for SHERPA, using fixed and varying omega.
 This code has been tested using the CAMS v2.2.1 emissions, and EMEP model, year 2015.
 Now the code has also been tested on a bottom-up dataset covering NL.
+In May 2022 the code has been used to train SRR based on CAMS v4.2 at 0.1x0.05 deg, including condensables for the residential sector.
 
 # What is SHERPA
 SHERPA (Screening for High Emission Reduction Potential on Air) is a Java/Python tool, which allows for a rapid exploration of potential air quality improvements resulting from national/regional/local emission reduction measures. The tool has been developed with the aim of supporting national, regional and local authorities in the design and assessment of their air quality plans.The tool is based on the relationships between emissions and concentration levels, and can be used to answer the following type of questions:
