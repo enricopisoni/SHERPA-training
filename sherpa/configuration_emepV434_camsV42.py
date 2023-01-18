@@ -42,7 +42,7 @@ def configuration(chooseOpt):
     conf.radStep2 = 100; # number of cells to be considered in step1
 
 
-    conf.POLLSEL = 15 # 0=SURF_ug_NO2, 1=SURF_ug_PM25_rh50, 2=SURF_ug_PM10_rh50, 3=SOMO35, 
+    conf.POLLSEL = 1 # 0=SURF_ug_NO2, 1=SURF_ug_PM25_rh50, 2=SURF_ug_PM10_rh50, 3=SOMO35, 
                       # 4=SURF_MAX03, 5=SURF_ug_NOx, 6=SURF_ppb_O3, 7=SURF_ppb_SO2,
                       # 8=SURF_ug_SO4, 9=SURF_ug_NO3_F, 10=SURF_ug_NH4_F, 
                       # 11=SURF_ug_PM_OM25, 12=SURF_ug_PPM25, 13='SURF_ug_ECFINE', 14='SURF_ug_NO', 15='SURF_ug_SIA');

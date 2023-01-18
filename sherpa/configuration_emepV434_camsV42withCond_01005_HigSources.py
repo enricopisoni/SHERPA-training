@@ -14,11 +14,11 @@ def configuration(chooseOpt):
     class Config:
         def scenEmissionFileName(self, sce):
             sces = '%01i'%(sce);
-            root = 'input/'+self.domain+'/sce'+sces+'/yearly/';
+            root = 'input/'+self.domain+'/sce'+sces+'/HIGH/';
             return root+'sce'+sces+'.nc';
         def scenConcFileName(self, sce):
             sces = '%01i'%(sce);
-            root = 'input/'+self.domain+'/sce'+sces+'/yearly/';
+            root = 'input/'+self.domain+'/sce'+sces+'/HIGH/';
             fileName = root+'sce'+sces+'.nc';
             return fileName;
         pass;
@@ -32,8 +32,8 @@ def configuration(chooseOpt):
     
     ###########################################################################
     #modify for testing
-    conf.domain = 'emepV434_camsV42withCond_01005';
-    conf.flagReg = 'emepV434_camsV42withCond_01005';
+    conf.domain = 'emepV434_camsV42withCond_01005_LH_sources';
+    conf.flagReg = 'emepV434_camsV42withCond_01005_LH_sources';
     conf.distance = 0 # 0=cells, 1=distance in km
     conf.gf = 0
     conf.rf1 = 3 # window of cells of training varying F (1=one ring of cells used for training, surrounding the target cell0
@@ -51,9 +51,9 @@ def configuration(chooseOpt):
 
     #conf.season = 'Yea'
     # conf.nPrec = 2; # 5 for PM, 2 for O3 (nox, voc), 1 for NO2 (nox)
-    conf.nSc = 13; #total number of scenarios
+    conf.nSc = 7; #total number of scenarios
     conf.Ide = np.array([0,1,2,3,4,5,6]) #np.arange(0, 8);  #training scenarios
-    conf.Val = np.arange(1,13)#np.arange(1, 33); #validation scenarios
+    conf.Val = np.arange(1,7)#np.arange(1, 33); #validation scenarios
     #conf.flagRegioMatFile = 'input/'+conf.domain+'/createFlagRegioMat/flagRegioMat.nc'#flagRegioMat-allEmepDomain.mat'#flagRegioMat_onlyLandEu28_noTurkey_noIceland.mat'#flagRegioMat-allEmepDomain.mat'#flagRegioMat_onlyLandEu28_noTurkey_noIceland.mat'#flagRegioMat_onlyLandEu28_noTurkey_noIceland.mat'#flagRegioMat-allEmepDomain.mat'#flagRegioMat_onlyLandEu28_noTurkey_noIceland.mat'; #fixed problem on west coast cells, and small islands
     conf.flagRegioMatFile = 'input/'+conf.domain+'/createFlagRegioMat/flagRegioMat_noSea_v3.nc'#all but #ATL	32	Remaining North-East Atlantic Ocean
     
@@ -63,7 +63,7 @@ def configuration(chooseOpt):
     date = datetime.datetime.now().strftime("%Y%m%d")
     # date = (datetime.datetime.now() - datetime.timedelta(2)).strftime("%Y%m%d")
     conf.nametest = date + '_rad' + str(conf.radStep1) + '-' + str(conf.radStep2) + \
-                    '_rf_' + str(conf.rf1) + '-' + str(conf.rf2) + 'Sec_Emi_Vars_LH';
+                    '_rf_' + str(conf.rf1) + '-' + str(conf.rf2) + 'Sec_Emi_Vars_H';
 
     # conf.nametest = '20190703_omegaSli07km_btw12_rf3_rad120';
 

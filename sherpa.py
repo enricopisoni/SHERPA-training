@@ -5,7 +5,18 @@
 #ep 20200610, do you want yearly or monthly results?
 #YEARLY VALUES
 #emepV434_camsV42withCond_01005 works with CAMS4.2, with condensables, at 0.1x0.05 spatial resolution
-chooseModel = 'emepV434_camsV42withCond_01005' #'emepV434_camsV42' #'ineris7km' # 'emep10km' #'china5km' #emepV433_camsV221 "edgar2015#
+
+#20221216
+#these are the tests to create SRR for low level, high level, lowhigh level 
+#notee that the traditional version uses lowhigh level together, while in 20221216 I am testing the 2 SRR separated
+chooseModel = 'emepV434_camsV42withCond_01005' #OPTIONS BELOW
+#emepV434_camsV42withCond_01005_LowSources
+#emepV434_camsV42withCond_01005_HigSources
+#emepV434_camsV42withCond_01005
+
+#previous options
+#emepV434_camsV42' #'ineris7km' # 'emep10km' #'china5km' #emepV433_camsV221 "edgar2015#
+
 #emep4nl_2021
 #test for NL, 20210729
 #chooseModel = 'emep4nl_2021' #'ineris7km' # 'emep10km' #'china5km' #emepV433_camsV221 "edgar2015#
@@ -42,6 +53,11 @@ elif chooseModel == 'emep4nl_2021':
     import sherpa.configuration_emep4nl_2021 as c
 elif chooseModel == 'emepV434_camsV42withCond_01005':
     import sherpa.configuration_emepV434_camsV42withCond_01005 as c
+elif chooseModel == 'emepV434_camsV42withCond_01005_LowSources':
+    import sherpa.configuration_emepV434_camsV42withCond_01005_LowSources as c
+elif chooseModel == 'emepV434_camsV42withCond_01005_HigSources':
+    import sherpa.configuration_emepV434_camsV42withCond_01005_HigSources as c
+
     
 if chooseOpt ==    'step1_omegaPerPoll_aggRes':
     import sherpa.training.step1.step1_omegaPerPoll_aggRes as s1

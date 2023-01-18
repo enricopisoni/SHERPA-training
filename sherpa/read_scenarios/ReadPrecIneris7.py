@@ -16,8 +16,8 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
     elif conf.domain == 'ineris7km':
         precVec = ['annualNOx','annualNMVOC','annualNH3','annualPM25','annualSOx'];
     elif (conf.domain == 'emepV433_camsV221') | (conf.domain == 'edgar2015') | (conf.domain == 'emepV434_camsV42') \
-        | (conf.domain =='emepV434_camsV42withCond_01005'):
-        precVec = ['Emis_mgm2_nox','Emis_mgm2_voc','Emis_mgm2_nh3','Emis_mgm2_pm25','Emis_mgm2_sox'];
+        | ('emepV434_camsV42withCond_01005' in conf.domain):
+        precVec = ['Sec_Emis_mgm2_nox','Sec_Emis_mgm2_voc','Sec_Emis_mgm2_nh3','Sec_Emis_mgm2_pm25','Sec_Emis_mgm2_sox'];
     elif (conf.domain == 'emep4nl_2021'):
         precVec = ['Sec_Emis_mgm2_nox','Sec_Emis_mgm2_voc','Sec_Emis_mgm2_nh3','Sec_Emis_mgm2_pm25','Sec_Emis_mgm2_sox'];
 
