@@ -36,10 +36,7 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
                 if platform.system() == 'Windows':
                     lat = np.squeeze(fh.variables['lat'][:]).transpose();
                     lon = np.squeeze(fh.variables['lon'][:]).transpose();
-                elif (platform.system() == 'Linux') and ('emep10km' in fileName):
-                    lat = np.squeeze(fh.variables['lat'][:]).transpose();
-                    lon = np.squeeze(fh.variables['lon'][:]).transpose();
-                elif (platform.system() == 'Linux') and ('ineris' in fileName):
+                elif (platform.system() == 'Linux'):
                     lat = np.squeeze(fh.variables['lat'][:]).transpose();
                     lon = np.squeeze(fh.variables['lon'][:]).transpose();
 
@@ -106,6 +103,16 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
             for pre in range(3, 4):
                 tmpMat = np.squeeze(fh.variables[precVec[0]][:]).transpose();
                 
+                if conf.yearmonth==1: #case for monthly values
+                    if conf.whichmonth=='DJF':
+                        tmpMat = np.sum(tmpMat[:,:,[0,1,11]], axis=2)
+                    elif conf.whichmonth=='MAM':
+                        tmpMat = np.sum(tmpMat[:,:,[2,3,4]], axis=2)    
+                    elif conf.whichmonth=='JJA':
+                        tmpMat = np.sum(tmpMat[:,:,[5,6,7]], axis=2)                    
+                    elif conf.whichmonth=='SON':
+                        tmpMat = np.sum(tmpMat[:,:,[8,9,10]], axis=2) 
+                        
                 #convert from mg/m2 to ton/km2 - this is the case for CAMS-EMEP, and EDGAR                  
                 tmpMat = tmpMat/1000
     

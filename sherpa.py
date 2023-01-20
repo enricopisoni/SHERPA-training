@@ -8,21 +8,29 @@
 
 #20221216
 #these are the tests to create SRR for low level, high level, lowhigh level 
-#notee that the traditional version uses lowhigh level together, while in 20221216 I am testing the 2 SRR separated
-chooseModel = 'emepV434_camsV42withCond_01005' #OPTIONS BELOW
-#emepV434_camsV42withCond_01005_LowSources
-#emepV434_camsV42withCond_01005_HigSources
-#emepV434_camsV42withCond_01005
+#note that the traditional version uses lowhigh level together, while in 20221216 I am testing the 2 SRR separated
+chooseModel = 'emepV434_camsV42withCond_01005_month' 
+
+########################################################################################
+#THESE ARE THE 3 RUNS NEEDED TO TEST LOW LEVEL SOURCES AND HIGH LEVEL SOURCES SEPARATED
+#emepV434_camsV42withCond_01005_LowSources - ONLY LOW LEVEL
+#emepV434_camsV42withCond_01005_HigSources - ONLY HIGH LEVEL
+#emepV434_camsV42withCond_01005 - LOW AND HIGH LEVEL TOGETHER
+#THESE ARE THE 3 RUNS NEEDED TO TEST LOW LEVEL SOURCES AND HIGH LEVEL SOURCES SEPARATED
+########################################################################################
 
 #previous options
 #emepV434_camsV42' #'ineris7km' # 'emep10km' #'china5km' #emepV433_camsV221 "edgar2015#
-
 #emep4nl_2021
 #test for NL, 20210729
 #chooseModel = 'emep4nl_2021' #'ineris7km' # 'emep10km' #'china5km' #emepV433_camsV221 "edgar2015#
-#MONTHLY VALUES
-#chooseModel = 'emepV433_camsV221_monthly' 
 ################################################################################################################
+
+time_agg_period = ['yearly', 'monthly', 'monthly', 'monthly', 'monthly']
+time_agg_tag = ['YEA', 'DJF', 'MAM', 'JJA', 'SON']    
+start_loop = 0; end_loop = 5 #0,1 means you run only yearly values - 0,5 means YEA + 4 seasons
+
+aqi_to_be_tested = list(range(0,16))
 
 chooseOpt = 'step1_omegaPerPoll_aggRes_perPoll' #'step1_omegaPerPoll_aggRes VS 
 
@@ -57,6 +65,8 @@ elif chooseModel == 'emepV434_camsV42withCond_01005_LowSources':
     import sherpa.configuration_emepV434_camsV42withCond_01005_LowSources as c
 elif chooseModel == 'emepV434_camsV42withCond_01005_HigSources':
     import sherpa.configuration_emepV434_camsV42withCond_01005_HigSources as c
+elif chooseModel == 'emepV434_camsV42withCond_01005_month':
+    import sherpa.configuration_emepV434_camsV42withCond_01005_month as c
 
     
 if chooseOpt ==    'step1_omegaPerPoll_aggRes':
@@ -73,104 +83,90 @@ __date__ = '2017-01-13'
 __updated__ = '2017-01-25'
 
 def main(argv=None):
-    '''Command line options.'''
-
-    program_name = os.path.basename(sys.argv[0])
-    program_version = "v%s" % __version__
-    program_build_date = "%s" % __updated__
-
-    program_version_string = '%%prog %s (%s)' % (program_version, program_build_date)
-    program_longdesc = '''''' # optional - give further explanation about what the program does
-    program_license = "Copyright 2017 ISPRA                                                    \
-    Licensed under the Apache License 2.0 \
-    http://www.apache.org/licenses/LICENSE-2.0"
-
-    if argv is None:
-        argv = sys.argv[1:]
-    try:    
-        # setup option parser
-        parser = OptionParser(version=program_version_string, epilog=program_longdesc, description=program_license)
-        parser.add_option("-p", "--path", dest="datapath", help="set data path [default: %default]", metavar="DIR")
-        parser.add_option("-v", "--verbose", dest="verbose", action="count", help="set verbosity level [default: %default]")
-        parser.add_option("-m", "--mode", dest="mode", help="set mode (T:training and validation, V:validation) [default: %default]")
-
-        ############################
-        conf = c.configuration(chooseOpt);
-
-        parser.set_defaults(datapath=conf.datapath, mode=conf.mode)
-
-        (opts, args) = parser.parse_args(argv)
-        conf.mode = opts.mode;
-
-        if opts.verbose and opts.verbose > 0:
-            print("verbosity level = %d" % opts.verbose)
-        if opts.datapath:
-            print("datapath = %s" % opts.datapath)
-        if opts.mode:
-            print("mode = %s" % opts.mode)
-
-        start = time.time();
-
-        os.chdir(opts.datapath)
-
-        print('read_scenarios');
-        rs.ReadScenarios(conf);
-
-        #compute ratio useful to correct weighting factor matrix, in the case of lat lon
-        cr.computeDistanceRatio(conf)
-
-        if opts.mode=='T':
-            print('step1');
-
-            #this uses varying omega
-            s1.step1_omegaOptimization(conf)
-
-#            # this is the test done during December 2019, using fixed omega
-            # conf.alphaFinalStep1_alldom = np.zeros((conf.Prec.shape[0], conf.Prec.shape[1], 5));
-            # conf.omegaFinalStep1_alldom = np.zeros((conf.Prec.shape[0], conf.Prec.shape[1], 5));
-            # conf.alphaFinalStep1_alldom[:] = 1
-            # conf.omegaFinalStep1_alldom[:] = 1.75 #THIS IS NOT USED AFTER
-            # conf.omegaFinalStep1 = np.zeros_like(conf.omegaFinalStep1_alldom)
-            # conf.omegaFinalStep1[:] = 1.75 #if you want to consider 1.5 fix
-            # conf.omegaFinalStep1[:, :, 3] = 1.75
-
-            print('step2');
-            s2.step2(conf);
-
-        print('validation');
-        v.validation(conf);
-        ############################
-
-        print('end');
-        print("Execution time: %s" % (time.time() - start));
-
-    except Exception as e:
-        indent = len(program_name) * " "
-        # print(traceback.format_exc())
-        sys.stderr.write(program_name + ": " + repr(e) + "\n")
-        sys.stderr.write(indent + "  for help use --help")
-        #print(sys.exc_info()[0])
-        return 2
+    #loop on air quality indicators
+    for aqi_selected in aqi_to_be_tested:
+        #loop on time aggregation
+        
+        for iter_loop in range(start_loop, end_loop):
+            print('processing ' + str(time_agg_period[iter_loop]), ', indicator ' + str(aqi_selected))
+            
+            '''Command line options.'''
+        
+            program_name = os.path.basename(sys.argv[0])
+            program_version = "v%s" % __version__
+            program_build_date = "%s" % __updated__
+            program_version_string = '%%prog %s (%s)' % (program_version, program_build_date)
+            program_longdesc = '''''' # optional - give further explanation about what the program does
+            program_license = "Copyright 2017 ISPRA                                                    \
+            Licensed under the Apache License 2.0 \
+            http://www.apache.org/licenses/LICENSE-2.0"
+        
+            if argv is None:
+                argv = sys.argv[1:]
+            try:    
+                # setup option parser
+                parser = OptionParser(version=program_version_string, epilog=program_longdesc, description=program_license)
+                parser.add_option("-p", "--path", dest="datapath", help="set data path [default: %default]", metavar="DIR")
+                parser.add_option("-v", "--verbose", dest="verbose", action="count", help="set verbosity level [default: %default]")
+                parser.add_option("-m", "--mode", dest="mode", help="set mode (T:training and validation, V:validation) [default: %default]")
+        
+                ############################
+                conf = c.configuration(chooseOpt, time_agg_period[iter_loop], time_agg_tag[iter_loop], aqi_selected);
+        
+                parser.set_defaults(datapath=conf.datapath, mode=conf.mode)
+        
+                (opts, args) = parser.parse_args(argv)
+                conf.mode = opts.mode;
+        
+                if opts.verbose and opts.verbose > 0:
+                    print("verbosity level = %d" % opts.verbose)
+                if opts.datapath:
+                    print("datapath = %s" % opts.datapath)
+                if opts.mode:
+                    print("mode = %s" % opts.mode)
+        
+                start = time.time();
+        
+                os.chdir(opts.datapath)
+        
+                print('read_scenarios');
+                rs.ReadScenarios(conf);
+        
+                #compute ratio useful to correct weighting factor matrix, in the case of lat lon
+                cr.computeDistanceRatio(conf)
+        
+                if opts.mode=='T':
+                    print('step1');
+        
+                    #this uses varying omega
+                    s1.step1_omegaOptimization(conf)
+        
+        #            # this is the test done during December 2019, using fixed omega
+                    # conf.alphaFinalStep1_alldom = np.zeros((conf.Prec.shape[0], conf.Prec.shape[1], 5));
+                    # conf.omegaFinalStep1_alldom = np.zeros((conf.Prec.shape[0], conf.Prec.shape[1], 5));
+                    # conf.alphaFinalStep1_alldom[:] = 1
+                    # conf.omegaFinalStep1_alldom[:] = 1.75 #THIS IS NOT USED AFTER
+                    # conf.omegaFinalStep1 = np.zeros_like(conf.omegaFinalStep1_alldom)
+                    # conf.omegaFinalStep1[:] = 1.75 #if you want to consider 1.5 fix
+                    # conf.omegaFinalStep1[:, :, 3] = 1.75
+        
+                    print('step2');
+                    s2.step2(conf);
+        
+                print('validation');
+                v.validation(conf);
+                ############################
+        
+                print('end');
+                print("Execution time: %s" % (time.time() - start));
+        
+            except Exception as e:
+                indent = len(program_name) * " "
+                # print(traceback.format_exc())
+                sys.stderr.write(program_name + ": " + repr(e) + "\n")
+                sys.stderr.write(indent + "  for help use --help")
+                #print(sys.exc_info()[0])
+                return 2
 
 if __name__ == "__main__":
-
-    '''
-    if DEBUG:
-        print(1);
-        #sys.argv.append("-h")
-    if TESTRUN:
-        import doctest
-        doctest.testmod()
-    if PROFILE:
-        import cProfile
-        import pstats
-        profile_filename = 'sherpa.main_profile.txt'
-        cProfile.run('main()', profile_filename)
-        statsfile = open("profile_stats.txt", "wb")
-        p = pstats.Stats(profile_filename, stream=statsfile)
-        stats = p.strip_dirs().sort_stats('cumulative')
-        stats.print_stats()
-        statsfile.close()
-        sys.exit(0)
-    '''
     sys.exit(main())
