@@ -16,7 +16,7 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
     elif conf.domain == 'ineris7km':
         precVec = ['annualNOx','annualNMVOC','annualNH3','annualPM25','annualSOx'];
     elif (conf.domain == 'emepV433_camsV221') | (conf.domain == 'edgar2015') | (conf.domain == 'emepV434_camsV42') \
-        | ('emepV434_camsV42withCond_01005' in conf.domain):
+        | ('cams' in conf.domain):
         precVec = ['Sec_Emis_mgm2_nox','Sec_Emis_mgm2_voc','Sec_Emis_mgm2_nh3','Sec_Emis_mgm2_pm25','Sec_Emis_mgm2_sox'];
     elif (conf.domain == 'emep4nl_2021'):
         precVec = ['Sec_Emis_mgm2_nox','Sec_Emis_mgm2_voc','Sec_Emis_mgm2_nh3','Sec_Emis_mgm2_pm25','Sec_Emis_mgm2_sox'];
@@ -27,6 +27,7 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
     for sce in range(0, nSc):
 
         #define filename and open netcdf
+        print(sce)
         fileName = conf.scenEmissionFileName(sce); #'input/'+domain+'/2010Cle_TSAP_Dec_2013_JRC'+sces+'_07b_2009/JRC'+sces+'.nc';
         fh = cdf.Dataset(fileName, mode='r');
                         
@@ -58,6 +59,11 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
                     tmpMat = np.sum(tmpMat[:,:,[5,6,7]], axis=2)                    
                 elif conf.whichmonth=='SON':
                     tmpMat = np.sum(tmpMat[:,:,[8,9,10]], axis=2)    
+                elif conf.whichmonth=='AMJJAS':
+                    tmpMat = np.sum(tmpMat[:,:,[3,4,5,6,7,8]], axis=2)    
+                elif conf.whichmonth=='ONDJFM':
+                    tmpMat = np.sum(tmpMat[:,:,[0,1,2,9,10,11]], axis=2)    
+                    
 
             #convert from mg/m2 to ton/km2 - this is the case for CAMS-EMEP, and EDGAR                  
             tmpMat = tmpMat/1000
@@ -91,8 +97,8 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
     if POLLSEL==2:
         if conf.domain == 'emep10km':
             precVec=['Emis_mgm2_pmco-Yea'];
-        elif (conf.domain == 'emepV433_camsV221') | (conf.domain == 'edgar2015') | (conf.domain == 'emepV434_camsV42') | (conf.domain =='emepV434_camsV42withCond_01005'):
-            precVec = ['Emis_mgm2_pmco'];
+        elif (conf.domain == 'emepV433_camsV221') | (conf.domain == 'edgar2015') | ('cams' in conf.domain) :
+            precVec = ['Sec_Emis_mgm2_pmco'];
         elif conf.domain == 'ineris7km':
             precVec=['annualPMcoarse'];       
 
@@ -103,15 +109,20 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
             for pre in range(3, 4):
                 tmpMat = np.squeeze(fh.variables[precVec[0]][:]).transpose();
                 
-                if conf.yearmonth==1: #case for monthly values
-                    if conf.whichmonth=='DJF':
-                        tmpMat = np.sum(tmpMat[:,:,[0,1,11]], axis=2)
-                    elif conf.whichmonth=='MAM':
-                        tmpMat = np.sum(tmpMat[:,:,[2,3,4]], axis=2)    
-                    elif conf.whichmonth=='JJA':
-                        tmpMat = np.sum(tmpMat[:,:,[5,6,7]], axis=2)                    
-                    elif conf.whichmonth=='SON':
-                        tmpMat = np.sum(tmpMat[:,:,[8,9,10]], axis=2) 
+            if conf.yearmonth==1: #case for monthly values
+                if conf.whichmonth=='DJF':
+                    tmpMat = np.sum(tmpMat[:,:,[0,1,11]], axis=2)
+                elif conf.whichmonth=='MAM':
+                    tmpMat = np.sum(tmpMat[:,:,[2,3,4]], axis=2)    
+                elif conf.whichmonth=='JJA':
+                    tmpMat = np.sum(tmpMat[:,:,[5,6,7]], axis=2)                    
+                elif conf.whichmonth=='SON':
+                    tmpMat = np.sum(tmpMat[:,:,[8,9,10]], axis=2)    
+                elif conf.whichmonth=='AMJJAS':
+                    tmpMat = np.sum(tmpMat[:,:,[3,4,5,6,7,8]], axis=2)    
+                elif conf.whichmonth=='ONDJFM':
+                    tmpMat = np.sum(tmpMat[:,:,[0,1,2,9,10,11]], axis=2)    
+ 
                         
                 #convert from mg/m2 to ton/km2 - this is the case for CAMS-EMEP, and EDGAR                  
                 tmpMat = tmpMat/1000

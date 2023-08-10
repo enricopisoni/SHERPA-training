@@ -31,6 +31,10 @@ def ReadIndicIneris7(nSc,nPrec,domain,aqiFil,aqiVar,absdel,nx,ny,conf):
                     tmpMat = np.mean(tmpMat[:,:,[5,6,7]], axis=2)                    
                 elif conf.whichmonth=='SON':
                     tmpMat = np.mean(tmpMat[:,:,[8,9,10]], axis=2)    
+                elif conf.whichmonth=='AMJJAS':
+                    tmpMat = np.mean(tmpMat[:,:,[3,4,5,6,7,8]], axis=2)    
+                elif conf.whichmonth=='ONDJFM':
+                    tmpMat = np.mean(tmpMat[:,:,[0,1,2,9,10,11]], axis=2)    
             
         fh.close();
         

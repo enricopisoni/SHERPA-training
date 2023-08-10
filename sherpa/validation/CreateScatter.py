@@ -40,7 +40,7 @@ def CreateScatter(bctarget,target,output,flagRegioMat,iSc,nx,ny,nomeDir,aqi,absd
     elif ('SIA' in aqi):
         axisBound = ([0,60,0,60],[0,25,0,25]);
         #axisBound = ([0 20 0 20],[0 10 0 10]); %only for riat-lomb
-    elif (aqi=='DDEP_RDN_m2Grid') | (aqi=='WDEP_RDN') :
+    elif ('DEP' in aqi) :
         axisBound = ([0,1800,0,1800],[0,400,0,400]);
     elif ('NH3' in aqi) | (aqi=='SURF_ug_NH4_F'):
         axisBound = ([0,60,0,60],[0,25,0,25]);        

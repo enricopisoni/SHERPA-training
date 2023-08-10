@@ -35,8 +35,8 @@ def configuration(chooseOpt, time_resol, time_loop, aqi_selected, source_split_i
     
     ###########################################################################
     #modify for testing
-    conf.domain = 'emepV434_camsV42withCond_01005'+source_split_instance;
-    conf.flagReg = 'emepV434_camsV42withCond_01005_LHsplit'+source_split_instance;
+    conf.domain = 'emepV4_45_cams61_withCond_01005_2019'+source_split_instance;
+    conf.flagReg = 'emepV4_45_cams61_withCond_01005_2019'+source_split_instance;
     
     # conf.flagReg = 'emepV434_camsV42withCond_01005';
     conf.distance = 0 # 0=cells, 1=distance in km
@@ -51,6 +51,7 @@ def configuration(chooseOpt, time_resol, time_loop, aqi_selected, source_split_i
                       # 4=SURF_MAX03, 5=SURF_ug_NOx, 6=SURF_ppb_O3, 7=SURF_ppb_SO2,
                       # 8=SURF_ug_SO4, 9=SURF_ug_NO3_F, 10=SURF_ug_NH4_F, 
                       # 11=SURF_ug_PM_OM25, 12=SURF_ug_PPM25, 13='SURF_ug_ECFINE', 14='SURF_ug_NO', 15='SURF_ug_SIA');
+                      #16=DDEP_OXN_m2Grid, 17=DDEP_RDN_m2Grid, 18=WDEP_OXN, 19=WDEP_RDN
     #NB: in case of 5=SURF_ug_NOx, NO and NO2 are summed up to produce NOx
     conf.nPrec = 5; # 5 for PM, 2 for O3 (nox, voc), 1 for NO2 (nox)
 
@@ -58,10 +59,17 @@ def configuration(chooseOpt, time_resol, time_loop, aqi_selected, source_split_i
     # conf.nPrec = 2; # 5 for PM, 2 for O3 (nox, voc), 1 for NO2 (nox)
     
     conf.Ide = np.array([0,1,2,3,4,5,6]) #np.arange(0, 8);  #training scenarios
-    # conf.nSc = 13; #total number of scenarios
-    conf.nSc = 7; #total number of scenarios in case of splitting sources
-    # conf.Val = np.arange(1,13); #validation scenarios
-    conf.Val = conf.Ide; #validation if splitting low and high ... final validation is done externally to the code
+    
+    ######################################################################
+    #EP 20230511
+    # MODIFY THIS TO WORK WITH LH TOGETHER, or LH SEPARATED
+    if len(source_split_instance)==0 : #case of LH TOGETHER
+        conf.nSc = 18;              # LH TOGETHER, total number of scenarios
+        conf.Val = np.arange(1,18); # LH TOGETHER, validation scenarios
+    elif len(source_split_instance)!=0 : #case of LH SEPARATED    
+        conf.nSc = 7;                 # LH SEPARATED, total number of scenarios in case of splitting sources
+        conf.Val = conf.Ide;          # LH SEPARATED, validation if splitting low and high ... final validation is done externally to the code
+    ######################################################################
     
     #conf.flagRegioMatFile = 'input/'+conf.domain+'/createFlagRegioMat/flagRegioMat.nc'#flagRegioMat-allEmepDomain.mat'#flagRegioMat_onlyLandEu28_noTurkey_noIceland.mat'#flagRegioMat-allEmepDomain.mat'#flagRegioMat_onlyLandEu28_noTurkey_noIceland.mat'#flagRegioMat_onlyLandEu28_noTurkey_noIceland.mat'#flagRegioMat-allEmepDomain.mat'#flagRegioMat_onlyLandEu28_noTurkey_noIceland.mat'; #fixed problem on west coast cells, and small islands
     conf.flagRegioMatFile = 'input/'+conf.domain+'/createFlagRegioMat/flagRegioMat_noSea_v3.nc'#all but #ATL	32	Remaining North-East Atlantic Ocean
@@ -110,7 +118,8 @@ def configuration(chooseOpt, time_resol, time_loop, aqi_selected, source_split_i
 
     conf.vec1 = ('SURF_ug_NO2','SURF_ug_PM25_rh50','SURF_ug_PM10_rh50','SOMO35', 'SURF_MAXO3', 'SURF_ug_NOx',
                  'SURF_ppb_O3', 'SURF_ppb_SO2','SURF_ug_SO4', 'SURF_ug_NO3_F','SURF_ug_NH4_F',
-                 'SURF_ug_PM_OM25', 'SURF_ug_PPM25', 'SURF_ug_ECFINE', 'SURF_ug_NO', 'SURF_ug_SIA');
+                 'SURF_ug_PM_OM25', 'SURF_ug_PPM25', 'SURF_ug_ECFINE', 'SURF_ug_NO', 'SURF_ug_SIA',
+                 'DDEP_OXN_m2Grid', 'DDEP_RDN_m2Grid', 'WDEP_OXN', 'WDEP_RDN');
 
     # n1 = 'SURF_ug_NOx-' + conf.season
     # n2 = 'SURF_ug_PM25_rh50-' + conf.season
@@ -118,7 +127,8 @@ def configuration(chooseOpt, time_resol, time_loop, aqi_selected, source_split_i
     # n4 = 'SURF_ppb_O3-' + conf.season
     conf.vec2 = conf.vec1 #(n1, n2, n3, n4)
     conf.vec3 = [[0],[0,1,2,3,4],[0,1,2,3,4],[0,1],[0,1],[0],[0,1],[0,1,2,3,4],[0,1,2,3,4], 
-                 [0,1,2,3,4], [0,1,2,3,4], [0,1,2,3,4], [3], [0,1,2,3,4], [0], [0,1,2,4]]; # no2 2voc 3nh3 4pm25 5so2 5nox
+                 [0,1,2,3,4], [0,1,2,3,4], [0,1,2,3,4], [3], [0,1,2,3,4], [0], [0,1,2,4],
+                 [0,2], [0,2], [0,2], [0,2]]; # no2 2voc 3nh3 4pm25 5so2 5nox
     #conf.vec4 = ('1step_SURF_ug_NO2','1step_SURF_ug_PM25_rh50','1step_SURF_ug_PM10_rh50','1SURF_ppb_O3','1SURF_ppb_MAXO3','1SURF_ppb_NOx'); #not used anymore
     aqiFil = conf.vec1[conf.POLLSEL];
 
