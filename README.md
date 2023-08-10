@@ -1,8 +1,11 @@
 # SHERPA-training
 Here you find the code to train Source Receptor Relationship for SHERPA, using fixed and varying omega.
 This code has been tested using the CAMS v2.2.1 emissions, and EMEP model, year 2015.
+
 Now the code has also been tested on a bottom-up dataset covering NL.
+
 In May 2022 the code has been used to train SRR based on CAMS v4.2 at 0.1x0.05 deg, including condensables for the residential sector.
+
 In August 2023 the code has been used to train SRR based on CAMS v6.1 at 0.1x0.005 def, including condensables for the residentail sector, allowing for a separate treatement of low and high level sources, managing seasonal SRRs.
 
 # What is SHERPA
