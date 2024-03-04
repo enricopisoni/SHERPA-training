@@ -26,8 +26,8 @@ def ReadScenarios(conf):
     fh = cdf.Dataset(conf.flagRegioMatFile, mode='r');
     conf.flagRegioMat = fh.variables['flagRegioMat'][:];  # when loading, I have 'nx,ny,month';
     # conf.flagRegioMat = np.ones_like(conf.IndicBC)
-    conf.flagRegioMat = np.zeros_like(conf.IndicBC)
-    conf.flagRegioMat[500:505,500:505] = 1
+    # conf.flagRegioMat = np.zeros_like(conf.IndicBC)
+    # conf.flagRegioMat[500:505,500:505] = 1
     
     #read info for grouping cells for omega calculation
     # fh = cdf.Dataset(conf.ncFileStep1, mode='r');

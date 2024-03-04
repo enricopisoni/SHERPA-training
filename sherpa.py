@@ -6,8 +6,11 @@
 # - yearly values, low and high sources together
 # - seasonal values (DJF, MAM, JJA, SON), low and high sources together
 # - yearly values, low and high sources split
-chooseModel = 'emepV4_45_cams61_withCond_01005_2019'  # this in the case you use low and high sources summed up
+
+# chooseModel =  'wrfchem_china_27kmres_2023'
+#'wrfchem_china_27kmres_2023'  # this in the case you use low and high sources summed up
 # chooseModel = 'emepV434_camsV42withCond_01005_month'
+chooseModel = 'emepV4_45_cams61_withCond_01005_2019'#
 
 #20230206 define if to split low and high level sources
 split_low_high_sources = False
@@ -25,10 +28,13 @@ start_time_loop = 0; end_time_loop = 1 #0,1 means you run only yearly values - 0
 #20230206 list of SRR to be tested
 # aqi_to_be_tested = list([0,1,2,4,6,14,16,17,18,19])
 #aqi_to_be_tested = list([0, 1, 2, 6, 17, 19])
-aqi_to_be_tested = list([6])
+# aqi_to_be_tested = list([7])
+# aqi_to_be_tested = list([2, 4, 6, 7, 15])# list(range(0,16))
+# aqi_to_be_tested = list([7])# list(range(0,16))
+aqi_to_be_tested = list([0,1,2,6])
 
 #20230206 standard optimization to be performed
-chooseOpt = 'step1_omegaPerPoll_aggRes_perPoll' #'step1_omegaPerPoll_aggRes VS 
+chooseOpt = 'step1_omegaPerPoll_aggRes_perPoll'        
 
 import os
 import sys
@@ -47,12 +53,16 @@ elif chooseModel == 'emepV434_camsV42withCond_01005_month':
     import sherpa.configuration_emepV434_camsV42withCond_01005_month as c
 elif chooseModel == 'emepV4_45_cams61_withCond_01005_2019':
     import sherpa.configuration_emepV4_45_cams61_withCond_01005_2019 as c
+elif chooseModel == 'wrfchem_china_27kmres_2023':
+    import sherpa.configuration_wrfchem_china_27kmres_2023 as c
    
 #20230206 only 'step1_omegaPerPoll_aggRes_perPoll' is currently used    
 if chooseOpt == 'step1_omegaPerPoll_aggRes':
     import sherpa.training.step1.step1_omegaPerPoll_aggRes as s1
 elif chooseOpt == 'step1_omegaPerPoll_aggRes_perPoll':
     import sherpa.training.step1.step1_omegaPerPoll_aggRes_perPoll as s1
+elif chooseOpt == 'step1_omegaPerPoll_aggRes_perPoll_ch':
+    import sherpa.training.step1.step1_omegaPerPoll_aggRes_perPoll_CH as s1
 
 __all__ = []
 __version__ = 0.1
@@ -123,14 +133,10 @@ def main(argv=None):
                         #this uses varying omega
                         s1.step1_omegaOptimization(conf)
             
-            #            # this is the test done during December 2019, using fixed omega
-                        # conf.alphaFinalStep1_alldom = np.zeros((conf.Prec.shape[0], conf.Prec.shape[1], 5));
+            #           # this is the test done during December 2019, using fixed omega
                         # conf.omegaFinalStep1_alldom = np.zeros((conf.Prec.shape[0], conf.Prec.shape[1], 5));
-                        # conf.alphaFinalStep1_alldom[:] = 1
-                        # conf.omegaFinalStep1_alldom[:] = 1.75 #THIS IS NOT USED AFTER
                         # conf.omegaFinalStep1 = np.zeros_like(conf.omegaFinalStep1_alldom)
-                        # conf.omegaFinalStep1[:] = 1.75 #if you want to consider 1.5 fix
-                        # conf.omegaFinalStep1[:, :, 3] = 1.75
+                        # conf.omegaFinalStep1[:] = 2.5 #if you want to consider 1.5 fix
             
                         print('step2');
                         s2.step2(conf);

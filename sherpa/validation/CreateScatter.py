@@ -74,7 +74,9 @@ def CreateScatter(bctarget,target,output,flagRegioMat,iSc,nx,ny,nomeDir,aqi,absd
         axisBound = ([0,40,0,40],[-5,5,-5,5]);
     elif aqi=='SURF_ug_ECFINE':
         axisBound = ([0,40,0,40],[-5,5,-5,5]);
-    
+    else:
+        axisBound = ([0,60,0,60],[0,25,0,25]);
+        
     for i in range(0, 2):
         # scatter
         h = plt.figure(1);

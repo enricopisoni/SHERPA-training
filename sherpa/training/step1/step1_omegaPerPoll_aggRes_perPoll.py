@@ -42,7 +42,7 @@ def step1_omegaOptimization(conf):
 
     #convert from 28 to 7 km
     Prec = f7.from7to28(conf.Prec);
-    ny = int(conf.ny/4);
+    ny = int(conf.ny/4);           
     nx = int(conf.nx/4);
     rad = conf.radStep1;
     nPrec = 5#len(conf.vec3[conf.POLLSEL])#conf.nPrec;
@@ -77,7 +77,7 @@ def step1_omegaOptimization(conf):
     elif conf.domain == 'ineris7km':
         IdeVec = (np.array([1, 2]),np.array([1, 3]),np.array([1, 4]),np.array([1, 5]),np.array([1, 6]));
     # elif (conf.domain == 'emepV433_camsV221')  | (conf.domain == 'edgar2015') | (conf.domain == 'emepV434_camsV42'):
-    elif ('emep' in conf.domain) |  (conf.domain == 'edgar2015'):        
+    elif ('emep' in conf.domain) |  (conf.domain == 'edgar2015') | ('wrf' in conf.domain):        
         IdeVec = (np.array([1, 1]), np.array([1, 2]), np.array([1, 3]), np.array([1, 4]), np.array([1, 5]));
 
     #loop over precursors
@@ -88,7 +88,8 @@ def step1_omegaOptimization(conf):
 #        icel = 0;
         
         #20220414, test with decreased bounds
-        bnds = ((0, 1), (1.75, 2)) #20220524, used for PM25, PM10, O3
+        # bnds = ((0, 1), (1.5, 2.5)) #20220524, used for PM25, PM10, O3
+        bnds = ((0, 1), (0.5, 2.5)) #20220524, used for PM25, PM10, O3
         # bnds = ((0, 1), (1.75, 2.5)) #20220524, used for NO2 and NO
         
         #intialize variables

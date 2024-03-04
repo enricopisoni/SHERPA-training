@@ -71,7 +71,9 @@ def CreateMap(bctarget,target,output,flagRegioMat,x,y,iSc,nomeDir,aqi,absdel,fla
     elif aqi=='SURF_ppb_SO2':
         levels = [np.arange(0,26,1),np.arange(0,26,1),np.arange(-4,4.2,0.2),np.arange(-10,11,1),np.arange(0,16,1),np.arange(0,16,1)];
         Range = [[0,25],[0,25],[-2,2],[-10,10],[-10,10],[-10,10]];
-
+    else:
+        levels = [np.arange(0,26,1),np.arange(0,26,1),np.arange(-4,4.2,0.2),np.arange(-10,11,1),np.arange(0,16,1),np.arange(0,16,1)];
+        Range = [[0,25],[0,25],[-2,2],[-10,10],[-10,10],[-10,10]];
 
     for i in range(0, 6):
         # scatter

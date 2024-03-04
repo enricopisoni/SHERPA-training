@@ -25,9 +25,15 @@ def saveToNetcdf(alpha,omega,flatWeight,x,y,nameDirOut,aqiFil,domain,radFull,rad
         # omegaAccuracyF[k, :, :] = np.flipud(omegaAccuracy[:, :, k]);
         # omegaNotFiltF[k, :, :] = np.flipud(omegaNotFilt[:, :, k]);
         flatWeightF[k,:,:] = np.flipud(flatWeight[:,:,k]);
-        
-    latitude = np.flipud(y);
-    longitude = x;
+
+    #20231107 EP, this is required because the WRF domain is regular in km but irregular in lat-lon
+    # while the CAMS one is regular in lat-lon but irregular in km
+    if domain=='wrfchem_china_27kmres_2023' :
+        latitude = np.flipud(y);
+        longitude = np.flipud(x);
+    else :
+        latitude = np.flipud(y);
+        longitude = x;
 
     ncfile = nameDirOut+'SR_'+aqiFil+'.nc';
     ncid = cdf.Dataset(ncfile, 'w', format='NETCDF3_CLASSIC');

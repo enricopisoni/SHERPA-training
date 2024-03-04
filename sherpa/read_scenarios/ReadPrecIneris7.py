@@ -20,6 +20,8 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
         precVec = ['Sec_Emis_mgm2_nox','Sec_Emis_mgm2_voc','Sec_Emis_mgm2_nh3','Sec_Emis_mgm2_pm25','Sec_Emis_mgm2_sox'];
     elif (conf.domain == 'emep4nl_2021'):
         precVec = ['Sec_Emis_mgm2_nox','Sec_Emis_mgm2_voc','Sec_Emis_mgm2_nh3','Sec_Emis_mgm2_pm25','Sec_Emis_mgm2_sox'];
+    elif ('wrf' in conf.domain):
+        precVec = ['E_NOx_sumsec','E_VOC_sumsec','E_NH3_sumsec','E_PM25_sumsec','E_SO2_sumsec'];
 
     flagLL = 0;
     
@@ -34,18 +36,35 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
         for pre in range(0, nPrec):
             #store latlon
             if flagLL==0:
-                if platform.system() == 'Windows':
+                if (platform.system() == 'Windows') & ('cams' in conf.domain):
                     lat = np.squeeze(fh.variables['lat'][:]).transpose();
                     lon = np.squeeze(fh.variables['lon'][:]).transpose();
+                    ny = lat.shape[0];
+                    nx = lon.shape[0];
+                    lat = np.kron(np.ones((nx, 1)), np.flipud(lat.transpose())).transpose();
+                    lon = np.kron(np.ones((ny, 1)), lon.transpose());
+                    flagLL=1;
+                if (platform.system() == 'Windows') & ('wrf' in conf.domain):
+                    
+                    lat = np.flipud(fh.variables['lat'][:])
+                    lon = np.flipud(fh.variables['lon'][:])
+                    
+                    ny = lat.shape[0];
+                    nx = lon.shape[0];
+                    flagLL=1;
+                    if ('wrf' in conf.domain):
+                        lat = np.tile(lat,(nx,1)).T
+                        lon = np.fliplr(np.tile(lon,(ny,1)))
                 elif (platform.system() == 'Linux'):
                     lat = np.squeeze(fh.variables['lat'][:]).transpose();
                     lon = np.squeeze(fh.variables['lon'][:]).transpose();
+                    ny = lat.shape[0];
+                    nx = lon.shape[0];
+                    lat = np.kron(np.ones((nx, 1)), np.flipud(lat.transpose())).transpose();
+                    lon = np.kron(np.ones((ny, 1)), lon.transpose());
+                    flagLL=1;
 
-                ny = lat.shape[0];
-                nx = lon.shape[0];
-                lat = np.kron(np.ones((nx, 1)), np.flipud(lat.transpose())).transpose();
-                lon = np.kron(np.ones((ny, 1)), lon.transpose());
-                flagLL=1;
+
                 Prec = np.zeros((ny,nx,nSc,nPrec));        
             
             #read variable                       
@@ -65,8 +84,8 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
                     tmpMat = np.sum(tmpMat[:,:,[0,1,2,9,10,11]], axis=2)    
                     
 
-            #convert from mg/m2 to ton/km2 - this is the case for CAMS-EMEP, and EDGAR                  
-            tmpMat = tmpMat/1000
+            #convert from g/grid to ton/grid - this is the case for CAMS-EMEP, and EDGAR                  
+            tmpMat = tmpMat/1000000
             
             #convert in case of total emissions     
             if emiDenAbs==1: # from ton/km2 to ton/cell
@@ -76,10 +95,7 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
                 tmpMat = tmpMat * surfaceValues;
 
             #do this in case of ozone   
-            if ('emep' in conf.domain) |  (conf.domain == 'edgar2015'):
-            # if (conf.domain == 'emep10km') | (conf.domain == 'emepV433_camsV221') | (conf.domain == 'edgar2015') \ 
-            #     | (conf.domain == 'emepV434_camsV42') | (conf.domain == 'emep4nl_2021') \
-            #     | (conf.domain =='emepV434_camsV42withCond_01005'):
+            if ('emep' in conf.domain) |  (conf.domain == 'edgar2015') | ('wrf' in conf.domain):
                 tmp = tmpMat
             elif conf.domain == 'ineris7km':
                 tmp = np.sum(tmpMat, 2); # APR-SET
@@ -101,6 +117,9 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
             precVec = ['Sec_Emis_mgm2_pmco'];
         elif conf.domain == 'ineris7km':
             precVec=['annualPMcoarse'];       
+        elif ('wrf' in conf.domain):
+            precVec = ['E_PPMco_sumsec'];
+
 
         flagLL=0;
         for sce in range(0, nSc):
@@ -125,7 +144,7 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
  
                         
                 #convert from mg/m2 to ton/km2 - this is the case for CAMS-EMEP, and EDGAR                  
-                tmpMat = tmpMat/1000
+                tmpMat = tmpMat/1000000
     
                 #convert in case of total emissions     
                 if emiDenAbs==1: # from ton/km2 to ton/cell
@@ -134,7 +153,7 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
                     tmpMat = tmpMat/1000
                     tmpMat = tmpMat * surfaceValues;
 
-                if ('emep' in conf.domain) |  (conf.domain == 'edgar2015'):
+                if ('emep' in conf.domain) |  (conf.domain == 'edgar2015') | ('wrf' in conf.domain):
                 # if (conf.domain == 'emep10km') | (conf.domain == 'emepV433_camsV221') | (conf.domain == 'edgar2015') | (conf.domain == 'emepV434_camsV42') \
                 #     | (conf.domain =='emepV434_camsV42withCond_01005'):
                     tmp = tmpMat

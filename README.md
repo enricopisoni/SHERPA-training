@@ -1,29 +1,46 @@
 # SHERPA-training
-Here you find the code to train Source Receptor Relationship for SHERPA, using fixed and varying omega.
-This code has been tested using the CAMS v2.2.1 emissions, and EMEP model, year 2015.
+Here you find the code to train the Source Receptor Relationship (SRR) used in the SHERPA model.
+More details on SHERPA model can be found at: https://aqm.jrc.ec.europa.eu/Section/Sherpa/Background.
 
-Now the code has also been tested on a bottom-up dataset covering NL.
+SRR (as the ones used in SHERPA) are statistical models that replicate the behavour of a full Chemical Transport Model (CTM).
+SRR are used when a speedy version of a full CTM is required, to perform multiple simulations of emission reduction scenarios with a limited amount of time and resources.
 
-In May 2022 the code has been used to train SRR based on CAMS v4.2 at 0.1x0.05 deg, including condensables for the residential sector.
+This code has been used in particular in October 2023 to train SRR to be used for the PM2.5 Atlas (https://publications.jrc.ec.europa.eu/repository/handle/JRC134950) preparation.
+The code has been then revised in March 2024.
 
-In August 2023 the code has been used to train SRR based on CAMS v6.1 at 0.1x0.005 def, including condensables for the residentail sector, allowing for a separate treatement of low and high level sources, managing seasonal SRRs.
+The default version of SHERPA uses EU wide data for training.
+It works at 0.1x0.05 deg (around 6x6km) spatial resolution, and uses as input:
+1) basecase emissions from CAMS v6.1 including condensables (CAMS v6.1-REF2) for the year 2019;
+2) various emission reduction scenarios, to be used for training and validation of the SRR;
+3) basecase concentrations of various pollutants (mainly PM2.5, PM10, O3, NO2) as produced by the EMEP v.45 air quality model, using CAMS emissions;
+4) various concentrations simulated by the EMEP model on the aforementioned emission reduction scenarios. 
+The data to train the European version of SHERPA are available on request.
+
+This code has also been used to train 'local' versions of SHERPA (based on other input dataset), on domains including areas in Poland, Italy, Slovenia and China.
+
+Finally, this code has been recently modified and extended, to allow for a separate treatement of 'low' and 'high' level sources (i.e. a different treatment for ground level emissions, and point source emissions), and to train seasonal SRRs.
 
 # What is SHERPA
-SHERPA (Screening for High Emission Reduction Potential on Air) is a Java/Python tool, which allows for a rapid exploration of potential air quality improvements resulting from national/regional/local emission reduction measures. The tool has been developed with the aim of supporting national, regional and local authorities in the design and assessment of their air quality plans.The tool is based on the relationships between emissions and concentration levels, and can be used to answer the following type of questions:
+SHERPA (Screening for High Emission Reduction Potential on Air) is a Python tool, which allows for a rapid exploration of potential air quality improvements resulting from national/regional/local emission reduction measures. The tool has been developed with the aim of supporting national, regional and local authorities in the design and assessment of their air quality plans.The tool is based on the relationships between emissions and concentration levels, and can be used to answer the following type of questions:
 1) What is the potential for local action in my domain?
 2) What are the priority activity, sectors and pollutants on which to take action and,
 3) What is the optimal dimension that my policy action domain (city, region…) should have to be efficient?"
 
-The SHERPA tool is distributed with EU-wide data on emissions and source-receptor models (spatial resolution of roughly 7x7 km2), so that it is very easy to start working on any region/local domain in Europe.
+The SHERPA tool is distributed with EU-wide data on emissions and source-receptor models (spatial resolution of roughly 6x6 km2), so that it is very easy to start working on any region/local domain in Europe.
+You can freely access SHERPA at https://jeodpp.jrc.ec.europa.eu/eu/dashboard/voila/render/SHERPA/Sherpa.ipynb (you only need an EU login to do so).
 
 More specifically, SHERPA logical pathway is implemented through the following steps:
-1) Source allocation: to understand how the air quality in a given area is influenced by different sources;
-2) Governance: to analyze how one should coordinate with the surrounding regions to optimally improve air quality;
-3) Scenario analysis: to simulate the impact on air quality of a specific emission reduction scenario (defined also through the previous two steps)
+1) Source allocation: to understand how the air quality in a given area is influenced by different sources (both sectoral and geographical);
+2) Scenario analysis: to simulate the impact on air quality of a specific emission reduction scenario (defined also through the previous two steps)
 
 # Selected publications
 
-For a full list of papers go to: https://aqm.jrc.ec.europa.eu/Section/Sherpa/Document.
+For a full and updated list of papers, go to: https://aqm.jrc.ec.europa.eu/Section/Sherpa/Document.
+
+- Bessagnet B., Pisoni E., Thunis P., Mascherpa M.,
+Design and implementation of a new module to evaluate the cost of air pollutant abatement measures
+(2022) Journal of Environmental Management, 317, 115486.
+https://www.sciencedirect.com/science/article/pii/S0301479722010593
 
 - Degraeuwe, B., Pisoni, E., Thunis, P.
 Prioritising the sources of pollution in European cities: Do air quality modelling applications provide consistent responses?
