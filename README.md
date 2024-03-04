@@ -14,6 +14,7 @@ It works at 0.1x0.05 deg (around 6x6km) spatial resolution, and uses as input:
 2) various emission reduction scenarios, to be used for training and validation of the SRR;
 3) basecase concentrations of various pollutants (mainly PM2.5, PM10, O3, NO2) as produced by the EMEP v4.45 air quality model, using CAMS emissions;
 4) various concentration scenarios simulated by the EMEP model on the aforementioned emission reduction scenarios. 
+
 The data to train the European version of SHERPA are available on request.
 
 This code has also been used to train 'local' versions of SHERPA (based on other input dataset), on domains including areas in Poland, Italy, Slovenia and China.
