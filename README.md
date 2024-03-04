@@ -22,7 +22,7 @@ This code has also been used to train 'local' versions of SHERPA (based on other
 Finally, this code has been recently modified and extended, to allow for a separate treatement of 'low' and 'high' level sources (i.e. a different treatment for ground level emissions, and point source emissions), and to train seasonal SRRs.
 
 # What is SHERPA
-SHERPA (Screening for High Emission Reduction Potential on Air) is a Python tool, which allows for a rapid exploration of potential air quality improvements resulting from national/regional/local emission reduction measures. The tool has been developed with the aim of supporting national, regional and local authorities in the design and assessment of their air quality plans.The tool is based on the relationships between emissions and concentration levels, and can be used to answer the following type of questions:
+SHERPA (Screening for High Emission Reduction Potential on Air) is a Python tool, which allows for a rapid exploration of potential air quality improvements resulting from national/regional/local emission reduction measures. The tool has been developed with the aim of supporting national, regional and local authorities in the design and assessment of their air quality plans. The tool is based on the relationships between emissions and concentration levels, and can be used to answer the following type of questions:
 1) What is the potential for local action in my domain?
 2) What are the priority activity, sectors and pollutants on which to take action and,
 3) What is the optimal dimension that my policy action domain (city, region…) should have to be efficient?"
@@ -37,6 +37,8 @@ More specifically, SHERPA logical pathway is implemented through the following s
 # Selected publications
 
 For a full and updated list of papers, go to: https://aqm.jrc.ec.europa.eu/Section/Sherpa/Document.
+
+Here below few papers, as example of the produced work:
 
 - Bessagnet B., Pisoni E., Thunis P., Mascherpa M.,
 Design and implementation of a new module to evaluate the cost of air pollutant abatement measures
