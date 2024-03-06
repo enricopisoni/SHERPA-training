@@ -23,7 +23,7 @@ else :
 #20230206 define if to consider only yearly, or also seasonal indicators
 time_agg_period = ['yearly', 'monthly', 'monthly', 'monthly', 'monthly']
 time_agg_tag = ['YEA', 'AMJJAS', 'ONDJFM', 'DJF', 'MAM', 'JJA', 'SON']    
-start_time_loop = 0; end_time_loop = 1 #0,1 means you run only yearly values - 0,3 is 6 month average, 0,7  means YEA, SEA + 4 seasons
+start_time_loop = 0; end_time_loop = 7 #0,1 means you run only yearly values - 0,3 is 6 month average, 0,7  means YEA, SEA + 4 seasons
 
 #20230206 list of SRR to be tested
 # aqi_to_be_tested = list([0,1,2,4,6,14,16,17,18,19])
@@ -31,7 +31,7 @@ start_time_loop = 0; end_time_loop = 1 #0,1 means you run only yearly values - 0
 # aqi_to_be_tested = list([7])
 # aqi_to_be_tested = list([2, 4, 6, 7, 15])# list(range(0,16))
 # aqi_to_be_tested = list([7])# list(range(0,16))
-aqi_to_be_tested = list([0,1,2,6])
+aqi_to_be_tested = list([1,2,6])
 
 #20230206 standard optimization to be performed
 chooseOpt = 'step1_omegaPerPoll_aggRes_perPoll'        
