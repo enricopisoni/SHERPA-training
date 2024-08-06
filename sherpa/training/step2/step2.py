@@ -130,6 +130,7 @@ def step2(conf):
                 regr = linear_model.LinearRegression()
                 regr.fit(PrecPatch, IndicEq)
                 alpha[ir,ic,[PrecToBeUsed]] = regr.coef_
+                # print(regr.coef_)
 
 #
 #

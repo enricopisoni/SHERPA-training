@@ -79,9 +79,9 @@ def configuration(chooseOpt, time_resol, time_loop, aqi_selected, source_split_i
     ###
     date = datetime.datetime.now().strftime("%Y%m%d")
     # date = (datetime.datetime.now() - datetime.timedelta(2)).strftime("%Y%m%d")
-    conf.nametest = date + '_rad' + str(conf.radStep1) + '-' + str(conf.radStep2) + \
-                    '_rf_' + str(conf.rf1) + '-' + str(conf.rf2) + 'Sec_Emi_Vars_' + time_loop;
-
+    # conf.nametest = date + '_rad' + str(conf.radStep1) + '-' + str(conf.radStep2) + \
+                    # '_rf_' + str(conf.rf1) + '-' + str(conf.rf2) + 'Sec_Emi_Vars_' + time_loop;
+    conf.nametest = date +'_' + time_loop;
     # conf.nametest = '20190703_omegaSli07km_btw12_rf3_rad120';
 
     # print(conf.nametest)

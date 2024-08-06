@@ -25,7 +25,7 @@ start_time_loop = 0; end_time_loop = 1 #0,1 means you run only yearly values - 0
 #20230206 list of SRR to be tested
 # aqi_to_be_tested = list([0,1,2,4,6,14,16,17,18,19])
 #aqi_to_be_tested = list([0, 1, 2, 6, 17, 19])
-aqi_to_be_tested = list([6])
+aqi_to_be_tested = list([1])
 
 #20230206 standard optimization to be performed
 chooseOpt = 'step1_omegaPerPoll_aggRes_perPoll' #'step1_omegaPerPoll_aggRes VS 
