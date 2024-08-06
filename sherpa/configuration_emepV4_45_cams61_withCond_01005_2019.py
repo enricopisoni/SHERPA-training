@@ -141,7 +141,8 @@ def configuration(chooseOpt, time_resol, time_loop, aqi_selected, source_split_i
 
     conf.mode = 'T'; # T or V
     if platform.system()=='Windows':
-        conf.datapath = 'D:\\WORK\\projects\\1_urbIam\\1_CODE_MATLAB\\SHERPA';
+        # conf.datapath = 'D:\\WORK\\projects\\1_urbIam\\1_CODE_MATLAB\\SHERPA';
+        conf.datapath = 'X:\\Integrated_assessment\\pisonen\\WORK\\projects\\1_urbIam\\1_CODE_MATLAB\SHERPA'
     elif platform.system()=='Linux':
         conf.datapath = '/eos/jeodpp/home/users/pisonen/SHERPA/';
 
