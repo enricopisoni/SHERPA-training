@@ -91,7 +91,7 @@ def step1_omegaOptimization(conf):
         # bnds = ((0, 1), (1.5, 2.5)) #20220524, used for PM25, PM10, O3
         # bnds = ((0, 1), (0.5, 2.5)) #20220524, used for PM25, PM10, O3
         # bnds = ((0, 1), (1.75, 2.5)) #20220524, used for NO2 and NO
-        bnds = ((0, 1), (2.0, 2.2)) #20220524, used for NO2 and NO
+        bnds = ((0, 1), (1.5, 2.5)) #20220524, used for NO2 and NO
         
         #intialize variables
 #        numcells = nx*ny

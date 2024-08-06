@@ -32,7 +32,7 @@ def funcAggreg(conf):
             vw = conf.vw;
             tmp1[:] = Ftmp[:,:,i];
             minVal = tmp1[rad+0-vw,rad+0];
-            tmp1[tmp1>=minVal] = np.NaN;
+            tmp1[tmp1>=minVal] = np.nan;
             aveVal = np.nanmean(np.nanmean(tmp1, axis=0));    
             tmp1[:] = Ftmp[:,:,i];
             tmp1[tmp1<minVal] = aveVal;

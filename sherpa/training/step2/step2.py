@@ -10,6 +10,8 @@ import statsmodels.formula.api as smf
 import time
 from sherpa.training import funcAggreg as fa
 from sklearn.linear_model import Ridge
+from sklearn.linear_model import Lasso
+from sklearn.linear_model import ElasticNet
 from sklearn import linear_model
 from sherpa.training import distanceComputation as dc
 import numexpr as ne
@@ -127,9 +129,15 @@ def step2(conf):
             
                 PrecPatch = (ne.evaluate('PrecDummyQuad*F')).sum((0, 1));
                 IndicEq[:, 0] = Indic[ir, ic, Ide];
-                regr = linear_model.LinearRegression()
+                # regr = linear_model.LinearRegression()
+                regr = linear_model.LinearRegression(fit_intercept=False)
+                # regr = linear_model.Ridge(alpha=0.01, fit_intercept=False)
                 regr.fit(PrecPatch, IndicEq)
+                regr.coef_
+
+                
                 alpha[ir,ic,[PrecToBeUsed]] = regr.coef_
+                print(regr.coef_)
 
 #
 #

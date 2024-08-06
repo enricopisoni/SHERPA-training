@@ -14,8 +14,8 @@ def CreateMap(bctarget,target,output,flagRegioMat,x,y,iSc,nomeDir,aqi,absdel,fla
     print('aqi: '+aqi);
     print('domain: '+domain);
     # creating maps
-    target[flagRegioMat==0] = np.NaN;
-    output[flagRegioMat==0] = np.NaN;
+    target[flagRegioMat==0] = np.nan;
+    output[flagRegioMat==0] = np.nan;
 
     # create graphs for target, output, bias, percentage bias
     nameFile = ['tar-sce-n','out-sce-n','bias-sce-n','biasPerc-sce-n','delta-out-sce-n','delta-tar-sce-n'];

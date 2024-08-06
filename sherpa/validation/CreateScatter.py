@@ -112,8 +112,8 @@ def CreateScatter(bctarget,target,output,flagRegioMat,iSc,nx,ny,nomeDir,aqi,absd
         #plt.tick_params(axis='both', which='minor', labelsize=8)
     
         # statistics
-        xgraph = xgraph[ygraph!=np.NaN];
-        ygraph = ygraph[ygraph!=np.NaN];
+        xgraph = xgraph[ygraph!=np.nan];
+        ygraph = ygraph[ygraph!=np.nan];
         corr_reg = 0;
         mse_reg = 0;
         matplotlib.rcParams.update({'font.size': 12});
