@@ -132,12 +132,9 @@ def step2(conf):
                 # regr = linear_model.LinearRegression()
                 regr = linear_model.LinearRegression(fit_intercept=False)
                 # regr = linear_model.Ridge(alpha=0.01, fit_intercept=False)
-                regr.fit(PrecPatch, IndicEq)
-                regr.coef_
-
-                
+                regr.fit(PrecPatch, IndicEq)                
                 alpha[ir,ic,[PrecToBeUsed]] = regr.coef_
-                print(regr.coef_)
+                # print(regr.coef_)
 
 #
 #

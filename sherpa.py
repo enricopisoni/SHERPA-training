@@ -126,12 +126,12 @@ def main(argv=None):
                         print('step1');
             
                         #this uses varying omega
-                        # s1.step1_omegaOptimization(conf)
+                        s1.step1_omegaOptimization(conf)
             
             #           # this is the test done during December 2019, using fixed omega
-                        conf.omegaFinalStep1_alldom = np.zeros((conf.Prec.shape[0], conf.Prec.shape[1], 5));
-                        conf.omegaFinalStep1 = np.zeros_like(conf.omegaFinalStep1_alldom)
-                        conf.omegaFinalStep1[:] = 2.5 #if you want to consider 1.5 fix
+                        # conf.omegaFinalStep1_alldom = np.zeros((conf.Prec.shape[0], conf.Prec.shape[1], 5));
+                        # conf.omegaFinalStep1 = np.zeros_like(conf.omegaFinalStep1_alldom)
+                        # conf.omegaFinalStep1[:] = 2.5 #if you want to consider 1.5 fix
             
                         print('step2');
                         s2.step2(conf);

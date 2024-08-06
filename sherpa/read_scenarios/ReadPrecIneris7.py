@@ -84,8 +84,8 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
                     tmpMat = np.sum(tmpMat[:,:,[0,1,2,9,10,11]], axis=2)    
                     
 
-            #convert from g/grid to ton/grid - this is the case for CAMS-EMEP, and EDGAR                  
-            tmpMat = tmpMat/1000000
+            #convert from mg/km2 to ton/grid - this is the case for CAMS-EMEP, and EDGAR                  
+            tmpMat = tmpMat/1000
             
             #convert in case of total emissions     
             if emiDenAbs==1: # from ton/km2 to ton/cell
@@ -144,7 +144,7 @@ def ReadPrecIneris7(nSc,nPrec,domain,absdel,POLLSEL,emiDenAbs,aqiFil,conf):
  
                         
                 #convert from mg/m2 to ton/km2 - this is the case for CAMS-EMEP, and EDGAR                  
-                tmpMat = tmpMat/1000000
+                tmpMat = tmpMat/1000
     
                 #convert in case of total emissions     
                 if emiDenAbs==1: # from ton/km2 to ton/cell
