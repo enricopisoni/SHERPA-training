@@ -10,8 +10,9 @@
 # chooseModel =  'wrfchem_china_27kmres_2023'
 #'wrfchem_china_27kmres_2023'  # this in the case you use low and high sources summed up
 # chooseModel = 'emepV434_camsV42withCond_01005_month'
-chooseModel = 'emepV4_45_cams61_withCond_01005_2019'#
-
+# chooseModel = 'emepV4_45_cams61_withCond_01005_2021'#
+chooseModel = 'emepV4_45_cams61_withCond_01005_2019_meteo2017'#
+               
 #20230206 define if to split low and high level sources
 split_low_high_sources = False
 if split_low_high_sources :
@@ -26,6 +27,7 @@ start_time_loop = 0; end_time_loop = 1 #0,1 means you run only yearly values - 0
 
 #20230206 list of SRR to be tested
 # aqi_to_be_tested = list([0,1,2,6])
+# aqi_to_be_tested = list([0,1,2])
 aqi_to_be_tested = list([1])
 
 #20230206 standard optimization to be performed
@@ -48,6 +50,14 @@ elif chooseModel == 'emepV434_camsV42withCond_01005_month':
     import sherpa.configuration_emepV434_camsV42withCond_01005_month as c
 elif chooseModel == 'emepV4_45_cams61_withCond_01005_2019':
     import sherpa.configuration_emepV4_45_cams61_withCond_01005_2019 as c
+elif chooseModel == 'emepV4_45_cams61_withCond_01005_2019_meteo2021':
+    import sherpa.configuration_emepV4_45_cams61_withCond_01005 as c
+elif chooseModel == 'emepV4_45_cams61_withCond_01005_2019_meteo2019':
+    import sherpa.configuration_emepV4_45_cams61_withCond_01005 as c
+elif chooseModel == 'emepV4_45_cams61_withCond_01005_2019_meteo2017':
+    import sherpa.configuration_emepV4_45_cams61_withCond_01005 as c    
+elif chooseModel == 'emepV4_45_cams61_withCond_01005_2019_meteo2015':
+    import sherpa.configuration_emepV4_45_cams61_withCond_01005 as c    
 elif chooseModel == 'wrfchem_china_27kmres_2023':
     import sherpa.configuration_wrfchem_china_27kmres_2023 as c
    
@@ -98,7 +108,7 @@ def main(argv=None):
                     parser.add_option("-m", "--mode", dest="mode", help="set mode (T:training and validation, V:validation) [default: %default]")
             
                     ############################
-                    conf = c.configuration(chooseOpt, time_agg_period[iter_loop], time_agg_tag[iter_loop], aqi_selected, source_split_instance);
+                    conf = c.configuration(chooseModel, chooseOpt, time_agg_period[iter_loop], time_agg_tag[iter_loop], aqi_selected, source_split_instance);
             
                     parser.set_defaults(datapath=conf.datapath, mode=conf.mode)
             

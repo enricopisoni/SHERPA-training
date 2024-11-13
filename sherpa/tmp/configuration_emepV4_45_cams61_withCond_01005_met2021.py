@@ -7,7 +7,7 @@ import numpy as np
 import platform
 import datetime
 
-def configuration(chooseOpt, time_resol, time_loop, aqi_selected, source_split_instance):
+def configuration(chooseModel, chooseOpt, time_resol, time_loop, aqi_selected, source_split_instance):
 
     #class configuration defines methods and attributes
     #methods: used to create names of scenarios to be loaded
@@ -35,8 +35,8 @@ def configuration(chooseOpt, time_resol, time_loop, aqi_selected, source_split_i
     
     ###########################################################################
     #modify for testing
-    conf.domain = 'emepV4_45_cams61_withCond_01005_2019'+source_split_instance;
-    conf.flagReg = 'emepV4_45_cams61_withCond_01005_2019'+source_split_instance;
+    conf.domain = chooseModel + source_split_instance;
+    conf.flagReg = chooseModel + source_split_instance;
     
     # conf.flagReg = 'emepV434_camsV42withCond_01005';
     conf.distance = 0 # 0=cells, 1=distance in km
@@ -64,8 +64,10 @@ def configuration(chooseOpt, time_resol, time_loop, aqi_selected, source_split_i
     #EP 20230511
     # MODIFY THIS TO WORK WITH LH TOGETHER, or LH SEPARATED
     if len(source_split_instance)==0 : #case of LH TOGETHER
-        conf.nSc = 18;              # LH TOGETHER, total number of scenarios
-        conf.Val = np.arange(1,18); # LH TOGETHER, validation scenarios
+        # conf.nSc = 18;              # LH TOGETHER, total number of scenarios
+        # conf.Val = np.arange(1,18); # LH TOGETHER, validation scenarios
+        conf.nSc = 8;              # LH TOGETHER, total number of scenarios
+        conf.Val = np.arange(1,8); # LH TOGETHER, validation scenarios
     elif len(source_split_instance)!=0 : #case of LH SEPARATED    
         conf.nSc = 7;                 # LH SEPARATED, total number of scenarios in case of splitting sources
         conf.Val = conf.Ide;          # LH SEPARATED, validation if splitting low and high ... final validation is done externally to the code
@@ -144,7 +146,7 @@ def configuration(chooseOpt, time_resol, time_loop, aqi_selected, source_split_i
     if platform.system()=='Windows':
         conf.datapath = 'X:\\Integrated_assessment\\pisonen\\WORK\\projects\\1_urbIam\\1_CODE_MATLAB\\SHERPA';
     elif platform.system()=='Linux':
-        conf.datapath = '/eos/jeodpp/home/users/pisonen/SHERPA/';
+        conf.datapath = '/eos/jeodpp/data/projects/IAM-SUL/transfer/SHERPA/';
 
     conf.shapeFile = 'input/'+conf.domain+'/Cntry02_emep-extent/cntry02_4km_emep_extent.shp';
     conf.filenameCellPerMs = 'input/'+conf.domain+'/grid_int_emep/grid_int_emep_perc_noTurkey.csv';

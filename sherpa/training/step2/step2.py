@@ -17,6 +17,7 @@ from sherpa.training import distanceComputation as dc
 import numexpr as ne
 from itertools import repeat, starmap
 import multiprocessing as mp
+import statsmodels.api as sm
 
 def computeOutput(ir,ic,rad,Prec,omega,PrecToBeUsed,vecPrecompF,Indic,Ide,poly,lat):
     print('Regression for ' + str(ir) + ', ' +str(ic))
@@ -134,6 +135,10 @@ def step2(conf):
                 # regr = linear_model.Ridge(alpha=0.01, fit_intercept=False)
                 regr.fit(PrecPatch, IndicEq)                
                 alpha[ir,ic,[PrecToBeUsed]] = regr.coef_
+                
+                # alpha = 0.10 # 95% confidence interval
+                # lr = sm.OLS(IndicEq, PrecPatch).fit()
+                # conf_interval = lr.conf_int(alpha)
                 # print(regr.coef_)
 
 #
