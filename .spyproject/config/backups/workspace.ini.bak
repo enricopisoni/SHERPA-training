@@ -4,7 +4,7 @@ save_data_on_exit = True
 save_history = True
 save_non_project_files = False
 project_type = 'empty-project-type'
-recent_files = ['sherpa.py', 'sherpa\\configuration_EMEP_45_CAMSv80_01005.py', 'sherpa\\read_scenarios\\readscenarios.py', 'sherpa\\read_scenarios\\readprecineris7.py', 'sherpa\\read_scenarios\\readindicineris7.py']
+recent_files = ['sherpa.py', 'sherpa\\configuration_EMEP_45_CAMSv80_01005.py', 'sherpa\\read_scenarios\\readscenarios.py', 'sherpa\\read_scenarios\\readprecineris7.py', 'sherpa\\read_scenarios\\readindicineris7.py', 'README.md']
 
 [main]
 version = 0.2.0

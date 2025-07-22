@@ -5,7 +5,7 @@ More details on SHERPA model can be found at: https://aqm.jrc.ec.europa.eu/Secti
 SRR (as the ones used in SHERPA) are statistical models that replicate the behavour of a full Chemical Transport Model (CTM).
 SRR are used when a speedy version of a full CTM is required, to perform multiple simulations of emission reduction scenarios with a limited amount of time and resources.
 
-This code has been used recently in July 2025 to train SRR to be used for the 2025 version of the PM2.5 Atlas (https://publications.jrc.ec.europa.eu/repository/handle/JRC134950) preparation.
+This code has been updated in July 2025 to train SRR to be used for the 2025 version of the PM2.5 Atlas (https://publications.jrc.ec.europa.eu/repository/handle/JRC134950) preparation.
 The code has been then revised in July 2025, to allow also for the computation of seasonal SRRs (i.e. for the period December-January-February, March-April-May, June-July-August, September-October-November).
 
 The default version of SHERPA uses EU wide data for training.
