@@ -9,11 +9,13 @@ import time
 #import matplotlib.pyplot as plt
 #import sherpa.validation.DrawShape as ds
 
-def saveToNetcdf(alpha,omega,flatWeight,x,y,nameDirOut,aqiFil,domain,radFull,radFlat,flagFlat,
+def saveToNetcdf(alpha,alpha_lb_ci,alpha_ub_ci,omega,flatWeight,x,y,nameDirOut,aqiFil,domain,radFull,radFlat,flagFlat,
                                         rf, radStep1, Ide, flagRegioMatFile, nametest, explain_step_1, explain_step_2,
                                         Order_Pollutant, alpha_physical_intepretation, omega_physical_intepretation, nPrec):
         
     alphaF = np.zeros((alpha.shape[2],alpha.shape[0],alpha.shape[1]));
+    alpha_lb_ciF = np.zeros((alpha.shape[2],alpha.shape[0],alpha.shape[1]));
+    alpha_ub_ciF = np.zeros((alpha.shape[2],alpha.shape[0],alpha.shape[1]));
     omegaF = np.zeros((omega.shape[2],omega.shape[0],omega.shape[1]));
     # omegaAccuracyF = np.zeros((omegaAccuracy.shape[2], omegaAccuracy.shape[0], omegaAccuracy.shape[1]));
     # omegaNotFiltF = np.zeros((omegaNotFilt.shape[2], omegaNotFilt.shape[0], omegaNotFilt.shape[1]));
@@ -21,6 +23,10 @@ def saveToNetcdf(alpha,omega,flatWeight,x,y,nameDirOut,aqiFil,domain,radFull,rad
     flatWeightF = np.zeros((flatWeight.shape[2],flatWeight.shape[0],flatWeight.shape[1]));
     for k in range(0, nPrec):
         alphaF[k,:,:] = np.flipud(alpha[:,:,k]);
+        
+        alpha_lb_ciF [k,:,:] = np.flipud(alpha_lb_ci[:,:,k]);
+        alpha_ub_ciF [k,:,:] = np.flipud(alpha_ub_ci[:,:,k]);
+        
         omegaF[k,:,:] = np.flipud(omega[:,:,k]);
         # omegaAccuracyF[k, :, :] = np.flipud(omegaAccuracy[:, :, k]);
         # omegaNotFiltF[k, :, :] = np.flipud(omegaNotFilt[:, :, k]);
@@ -44,6 +50,10 @@ def saveToNetcdf(alpha,omega,flatWeight,x,y,nameDirOut,aqiFil,domain,radFull,rad
     varid_lat = ncid.createVariable("lat","f8",('latitude','longitude'));
     varid_lon = ncid.createVariable("lon","f8",('latitude','longitude'));
     varid_alpha = ncid.createVariable("alpha","f8",('pollutant','latitude','longitude'));
+    
+    varid_alpha_lb_ci = ncid.createVariable("alpha_lb_ci","f8",('pollutant','latitude','longitude'));
+    varid_alpha_ub_ci = ncid.createVariable("alpha_ub_ci","f8",('pollutant','latitude','longitude'));
+    
     varid_omega = ncid.createVariable("omega","f8",('pollutant','latitude','longitude'));
     # varid_omegaAccuracy = ncid.createVariable("omegaAccuracy", "f8", ('pollutant', 'latitude', 'longitude'));
     # varid_omegaNotFilt = ncid.createVariable("omegaNotFilt", "f8", ('pollutant', 'latitude', 'longitude'));
@@ -87,6 +97,10 @@ def saveToNetcdf(alpha,omega,flatWeight,x,y,nameDirOut,aqiFil,domain,radFull,rad
     varid_lat[:] = latitude;
     varid_lon[:] = longitude;
     varid_alpha[:] = alphaF;
+    
+    varid_alpha_lb_ci[:] = alpha_lb_ciF;
+    varid_alpha_ub_ci[:] = alpha_ub_ciF;
+    
     varid_omega[:] = omegaF;
     # varid_omegaAccuracy[:] = omegaAccuracyF;
     # varid_omegaNotFilt[:] = omegaNotFiltF;

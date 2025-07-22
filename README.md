@@ -5,14 +5,14 @@ More details on SHERPA model can be found at: https://aqm.jrc.ec.europa.eu/Secti
 SRR (as the ones used in SHERPA) are statistical models that replicate the behavour of a full Chemical Transport Model (CTM).
 SRR are used when a speedy version of a full CTM is required, to perform multiple simulations of emission reduction scenarios with a limited amount of time and resources.
 
-This code has been used in particular in October 2023 to train SRR to be used for the PM2.5 Atlas (https://publications.jrc.ec.europa.eu/repository/handle/JRC134950) preparation.
-The code has been then revised in March 2024.
+This code has been used recently in July 2025 to train SRR to be used for the 2025 version of the PM2.5 Atlas (https://publications.jrc.ec.europa.eu/repository/handle/JRC134950) preparation.
+The code has been then revised in July 2025, to allow also for the computation of seasonal SRRs (i.e. for the period December-January-February, March-April-May, June-July-August, September-October-November).
 
 The default version of SHERPA uses EU wide data for training.
 It works at 0.1x0.05 deg (around 6x6km) spatial resolution, and uses as input:
-1) basecase emissions from CAMS v6.1 including condensables (CAMS v6.1-REF2) for the year 2019;
+1) basecase emissions from CAMS v8.0 including condensables, for the year 2022;
 2) various emission reduction scenarios, to be used for training and validation of the SRR;
-3) basecase concentrations of various pollutants (mainly PM2.5, PM10, O3, NO2) as produced by the EMEP v4.45 air quality model, using CAMS emissions;
+3) basecase concentrations of various pollutants (mainly PM2.5, PM10, O3, NO2, SO2) as produced by the EMEP v4.45 air quality model, using CAMS emissions;
 4) various concentration scenarios simulated by the EMEP model on the aforementioned emission reduction scenarios. 
 
 The data to train the European version of SHERPA are available on request.
@@ -39,6 +39,36 @@ More specifically, SHERPA logical pathway is implemented through the following s
 For a full and updated list of papers, go to: https://aqm.jrc.ec.europa.eu/Section/Sherpa/Document.
 
 Here below few papers, as example of the produced work:
+
+- Pisoni E., Zauli-Sajani S., Belis C.A., Khomenko S., Thunis P., Motta C., Van Dingenen R., Bessagnet B., Monforti-Ferrario F., Maes J., Feyen L.
+High resolution assessment of air quality and health in Europe under different climate mitigation scenarios
+(2025) Nature Communications , 16 (1), art. no. 5134
+https://www.scopus.com/inward/record.uri?eid=2-s2.0-105007185788&doi=10.1038%2fs41467-025-60449-2&partnerID=40&md5=0e12d55e732355e69b53a7e452185bed
+
+- Thunis P., Pisoni E., Zauli-Sajani S., de Meij A.
+Comparison of source apportionment targeting hot-spot concentration and average population exposure
+(2025) Science of the Total Environment, 968, art. no. 178857, Cited 0 times.
+https://www.scopus.com/inward/record.uri?eid=2-s2.0-85218139948&doi=10.1016%2fj.scitotenv.2025.178857&partnerID=40&md5=c6caa747fd9cbf4b8c677b9150b51ac4
+
+- Zauli-Sajani S., Thunis P., Pisoni E., Bessagnet B., Monforti-Ferrario F., De Meij A., Pekar F., Vignati E.
+Reducing biomass burning is key to decrease PM2.5 exposure in European cities
+(2024) Scientific Reports, 14 (1), art. no. 10210, Cited 16 times.
+https://www.scopus.com/inward/record.uri?eid=2-s2.0-85191971193&doi=10.1038%2fs41598-024-60946-2&partnerID=40&md5=499bd09964bd0983d4e83a4c2882b619
+
+- Pisoni E., De Marchi D., di Taranto A., Bessagnet B., Zauli Sajani S., De Meij A., Thunis P.
+SHERPA-Cloud: An open-source online model to simulate air quality management policies in Europe
+(2024) Environmental Modelling and Software, 176, art. no. 106031, Cited 6 times.
+https://www.scopus.com/inward/record.uri?eid=2-s2.0-85189674063&doi=10.1016%2fj.envsoft.2024.106031&partnerID=40&md5=8c359f063d3f77817707d15a4d99eb47
+
+- Verweij R.W., Pisoni E., van Pul A., Thunis P., van der Swaluw E.
+A fast method for ammonia emission reduction scenario studies: Combining EMEP4NL with the SHERPA tool
+(2023) Atmospheric Environment, 306, art. no. 119805, Cited 2 times.
+https://www.scopus.com/inward/record.uri?eid=2-s2.0-85158873253&doi=10.1016%2fj.atmosenv.2023.119805&partnerID=40&md5=ec95b52abf00139e497a4f0b815b2ded
+
+- Khomenko S., Pisoni E., Thunis P., Bessagnet B., Cirach M., Iungman T., Barboza E.P., Khreis H., Mueller N., Tonne C., de Hoogh K., Hoek G., Chowdhury S., Lelieveld J., Nieuwenhuijsen M.
+Spatial and sector-specific contributions of emissions to ambient air pollution and mortality in European cities: a health impact assessment
+(2023) The Lancet Public Health, 8 (7), pp. e546 - e558, Cited 38 times.
+https://www.scopus.com/inward/record.uri?eid=2-s2.0-85163451629&doi=10.1016%2fS2468-2667%2823%2900106-8&partnerID=40&md5=cbb336454ed4268a2251d142b0680ef5
 
 - Bessagnet B., Pisoni E., Thunis P., Mascherpa M.,
 Design and implementation of a new module to evaluate the cost of air pollutant abatement measures

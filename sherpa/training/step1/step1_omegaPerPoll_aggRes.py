@@ -117,6 +117,7 @@ def step1_omegaOptimization(conf):
         remInd = (IndicEq>0).flatten()
         i=1
         x0 = [1, 2];
+        
 #        ind = np.where(indexUsedLin==i)[0];
 
         inp1 = PrecPatch[remInd]#[ind,:];

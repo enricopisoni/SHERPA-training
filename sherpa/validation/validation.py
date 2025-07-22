@@ -72,6 +72,9 @@ def validation(conf):
     alpha = mat.get('alpha');
     omega = mat.get('omega');
     
+    alpha_lb_ci = mat.get('alpha_lb_ci');
+    alpha_ub_ci = mat.get('alpha_ub_ci');
+        
     if conf.mode=='V':
         conf.omegaFinalStep1 = omega;
         fa.funcAggreg(conf);
@@ -94,7 +97,7 @@ def validation(conf):
     #if flat:
         # SAVING TO NETCDF
     rad = conf.vw; # only small change to save that the model is with 30 cells with varying weights
-    sm.saveToNetcdf(alpha,omega,flatWeight,conf.x,
+    sm.saveToNetcdf(alpha,alpha_lb_ci,alpha_ub_ci,omega,flatWeight,conf.x,
                                            conf.y,nameDirOut,conf.aqiFil,conf.domain,
                                            conf.radStep2,conf.vw,conf.flat,
                                            conf.rf2, conf.radStep1, conf.Ide, conf.flagRegioMatFile, conf.nametest,

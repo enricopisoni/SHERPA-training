@@ -1,5 +1,14 @@
 #!/usr/bin/env python
 # encoding: utf-8 
+import os
+import sys
+import time
+import numpy as np
+import sherpa.read_scenarios.ReadScenarios as rs
+import sherpa.read_scenarios.computeDistanceRatio as cr
+import sherpa.training.step2.step2 as s2
+import sherpa.validation.validation as v
+from optparse import OptionParser
 
 #20230206 
 # I am now using this general function, that allows to work with
@@ -11,37 +20,33 @@
 #'wrfchem_china_27kmres_2023'  # this in the case you use low and high sources summed up
 # chooseModel = 'emepV434_camsV42withCond_01005_month'
 # chooseModel = 'emepV4_45_cams61_withCond_01005_2021'#
-chooseModel = 'emepV4_45_cams61_withCond_01005_2019_meteo2017'#
+# chooseModel = 'met15_emep50_cams2015v80'#'emep45_cams80'#
+chooseModel = 'emep45_cams80_emi2015'#
                
 #20230206 define if to split low and high level sources
 split_low_high_sources = False
 if split_low_high_sources :
-    source_split=['', '_low', '_high'] 
+    #source_split=['', '_low', '_high'] 
+    source_split=['_low', '_high'] 
 else :
-    source_split=[''] 
+    source_split=[''] \
     
 #20230206 define if to consider only yearly, or also seasonal indicators
 time_agg_period = ['yearly', 'monthly', 'monthly', 'monthly', 'monthly']
 time_agg_tag = ['YEA', 'DJF', 'MAM', 'JJA', 'SON']    
-start_time_loop = 0; end_time_loop = 1 #0,1 means you run only yearly values - 0,3 is 6 month average, 0,7  means YEA, SEA + 4 seasons
+start_time_loop = 0; end_time_loop = 1 #0,1 means you run only yearly values - 0,5 means YEA + 4 seasons
+# start_time_loop = 0; end_time_loop = 1 #0,1 means you run only yearly values - 0,5 means YEA + 4 seasons
 
 #20230206 list of SRR to be tested
 # aqi_to_be_tested = list([0,1,2,6])
 # aqi_to_be_tested = list([0,1,2])
 aqi_to_be_tested = list([1])
+# aqi_to_be_tested = list(range(15,19))
+# aqi_to_be_tested = list(range(11,12))
+# aqi_to_be_tested = list([1])
 
 #20230206 standard optimization to be performed
 chooseOpt = 'step1_omegaPerPoll_aggRes_perPoll'        
-
-import os
-import sys
-import time
-import numpy as np
-import sherpa.read_scenarios.ReadScenarios as rs
-import sherpa.read_scenarios.computeDistanceRatio as cr
-import sherpa.training.step2.step2 as s2
-import sherpa.validation.validation as v
-from optparse import OptionParser
 
 #20230206 only emepV434_camsV42withCond_01005_month is currently used
 if chooseModel == 'emep10km':
@@ -60,6 +65,13 @@ elif chooseModel == 'emepV4_45_cams61_withCond_01005_2019_meteo2015':
     import sherpa.configuration_emepV4_45_cams61_withCond_01005 as c    
 elif chooseModel == 'wrfchem_china_27kmres_2023':
     import sherpa.configuration_wrfchem_china_27kmres_2023 as c
+elif chooseModel == 'emep45_cams80':
+    import sherpa.configuration_EMEP_45_CAMSv80_01005 as c    
+elif chooseModel == 'emep45_cams80_emi2015':
+    import sherpa.configuration_EMEP_45_CAMSv80_01005_emi2015 as c    
+elif chooseModel == 'met15_emep50_cams2015v80':
+    import sherpa.config_met15_emep50_cams2015v80 as c    
+
    
 #20230206 only 'step1_omegaPerPoll_aggRes_perPoll' is currently used    
 if chooseOpt == 'step1_omegaPerPoll_aggRes':

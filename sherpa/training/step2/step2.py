@@ -92,6 +92,11 @@ def step2(conf):
 
     #initialize variables
     alpha = np.full([ny,nx,5],np.nan);
+    
+    #add alpha with LB_CI, UP_CI
+    alpha_lb_ci = np.full([ny,nx,5],np.nan);
+    alpha_ub_ci = np.full([ny,nx,5],np.nan);
+    
     flatWeight = np.zeros((ny,nx,5));
     XMin = np.zeros((ny,nx,nPrec));
     XMax = np.zeros((ny,nx,nPrec));
@@ -136,9 +141,13 @@ def step2(conf):
                 regr.fit(PrecPatch, IndicEq)                
                 alpha[ir,ic,[PrecToBeUsed]] = regr.coef_
                 
-                # alpha = 0.10 # 95% confidence interval
-                # lr = sm.OLS(IndicEq, PrecPatch).fit()
-                # conf_interval = lr.conf_int(alpha)
+                lr = sm.OLS(IndicEq, PrecPatch).fit()
+                conf_interval = lr.conf_int(0.05)
+                
+                #save alpha CI
+                alpha_lb_ci[ir,ic,[PrecToBeUsed]] = conf_interval[:,0]
+                alpha_ub_ci[ir,ic,[PrecToBeUsed]] = conf_interval[:,1]
+                
                 # print(regr.coef_)
 
 #
@@ -174,7 +183,7 @@ def step2(conf):
     # bInt[ir, ic, [PrecToBeUsed], :] = []
     #save results
     if flat:
-        sio.savemat(nameRegFile, {'alpha':alpha, 'omega':omega, 'flatWeight':flatWeight});
+        sio.savemat(nameRegFile, {'alpha':alpha, 'alpha_lb_ci':alpha_lb_ci, 'alpha_ub_ci':alpha_ub_ci, 'omega':omega, 'flatWeight':flatWeight});
     else:
-        sio.savemat(nameRegFile, {'alpha':alpha, 'omega':omega, 'XMin':XMin, 'XMax':XMax, 'yMin':yMin, 'yMax':yMax});
+        sio.savemat(nameRegFile, {'alpha':alpha, 'alpha_lb_ci':alpha_lb_ci, 'alpha_ub_ci':alpha_ub_ci, 'omega':omega, 'XMin':XMin, 'XMax':XMax, 'yMin':yMin, 'yMax':yMax});
 
